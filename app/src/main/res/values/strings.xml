@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidDemos</string>
+    <string name="go_nested_scrolling">NestedScrolling Demo</string>
 </resources>

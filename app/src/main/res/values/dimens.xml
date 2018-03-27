@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 一级标题 -->
+    <dimen name="primary_title">16dp</dimen>
+    <!-- 二级标题 -->
+    <dimen name="secondary_title">14dp</dimen>
+</resources>
