@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">AndroidDemos</string>
     <string name="go_nested_scrolling">NestedScrolling Demo</string>
+    <string name="touch_event">触摸事件分发Demo</string>
 </resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.arise.android.demo.touch.MyRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.arise.android.demo.touch.TouchActivity">
+    <com.arise.android.demo.touch.MyTextView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentBottom="true"
+        android:text="I am child"/>
+
+</com.arise.android.demo.touch.MyRelativeLayout>
