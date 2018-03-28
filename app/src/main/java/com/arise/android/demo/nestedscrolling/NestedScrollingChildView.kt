@@ -42,15 +42,6 @@ class NestedScrollingChildView : RecyclerView, NestedScrollingChild {
         init()
     }
 
-    override fun dispatchNestedScroll(dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, offsetInWindow: IntArray?): Boolean {
-        Log.e(TAG, "dispatchNestedScroll")
-        return mChildHelper.dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, offsetInWindow)
-    }
-
-    override fun isNestedScrollingEnabled(): Boolean {
-        return mChildHelper.isNestedScrollingEnabled
-    }
-
     /**
      * 在child没有消费事件前，分发事件，parent会收到onNestedPreScroll通知，
      */
@@ -65,6 +56,17 @@ class NestedScrollingChildView : RecyclerView, NestedScrollingChild {
 //        }
         return result
     }
+
+
+    override fun dispatchNestedScroll(dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, offsetInWindow: IntArray?): Boolean {
+        Log.e(TAG, "dispatchNestedScroll")
+        return mChildHelper.dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, offsetInWindow)
+    }
+
+    override fun isNestedScrollingEnabled(): Boolean {
+        return mChildHelper.isNestedScrollingEnabled
+    }
+
 
     private fun init() {
         mChildHelper.isNestedScrollingEnabled = true

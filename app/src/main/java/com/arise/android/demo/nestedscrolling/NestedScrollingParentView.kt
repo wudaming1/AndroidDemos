@@ -37,24 +37,11 @@ class NestedScrollingParentView : LinearLayout, NestedScrollingParent {
         head = findViewById(R.id.head)
     }
 
-
-    override fun onNestedScrollAccepted(child: View, target: View, axes: Int) {
-        Log.e(TAG, "onNestedScrollAccepted")
-        mParentHelper.onNestedScrollAccepted(child, target, axes)
-    }
-
     override fun onStartNestedScroll(child: View, target: View, axes: Int): Boolean {
         Log.e(TAG, "onStartNestedScroll:${axes == ViewCompat.SCROLL_AXIS_VERTICAL}")
         return axes == ViewCompat.SCROLL_AXIS_VERTICAL
     }
 
-    override fun onNestedFling(target: View, velocityX: Float, velocityY: Float, consumed: Boolean): Boolean {
-        return false
-    }
-
-    override fun getNestedScrollAxes(): Int {
-        return mParentHelper.nestedScrollAxes
-    }
 
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray) {
@@ -73,9 +60,22 @@ class NestedScrollingParentView : LinearLayout, NestedScrollingParent {
         return false
     }
 
+    override fun onNestedFling(target: View, velocityX: Float, velocityY: Float, consumed: Boolean): Boolean {
+        return false
+    }
+
+    override fun onNestedScrollAccepted(child: View, target: View, axes: Int) {
+        mParentHelper.onNestedScrollAccepted(child, target, axes)
+    }
+
     override fun onStopNestedScroll(target: View) {
         mParentHelper.onStopNestedScroll(target)
     }
+
+    override fun getNestedScrollAxes(): Int {
+        return mParentHelper.nestedScrollAxes
+    }
+
 
     private fun canScrollVertical(offset: Int): Boolean {
         return if (offset < 0) {
