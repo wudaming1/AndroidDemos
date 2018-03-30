@@ -1,7 +1,9 @@
 package com.arise.android.demo.nestedscrolling
 
 import android.content.Context
-import android.support.v4.view.*
+import android.support.v4.view.NestedScrollingChild
+import android.support.v4.view.NestedScrollingChildHelper
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.AttributeSet
@@ -11,7 +13,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import com.arise.android.demo.MovableLine
 import com.arise.android.demo.R
 
@@ -21,7 +22,7 @@ fun inflate(parent: ViewGroup, int: Int, attachToRoot: Boolean): View {
 }
 
 /**
- * Created by wudaming on 2018/3/21.
+ * 嵌套滑动机制接口实现版本，使用时通用的
  */
 class NestedScrollingChildView : RecyclerView, NestedScrollingChild {
 
@@ -50,10 +51,11 @@ class NestedScrollingChildView : RecyclerView, NestedScrollingChild {
         var result: Boolean = mChildHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow)
         //传入的consumed可能为空，经过传递后，如果进入onNestedPreScroll流程，consumed一定不为空
 
+
 //        consumed?.apply {
 //            result = dispatchNestedScroll(consumed[0], consumed[1], dx - consumed[0],
 //                    dy - consumed[1], offsetInWindow) || result
-//        }
+////        }
         return result
     }
 

@@ -10,7 +10,7 @@ import android.widget.LinearLayout
 import com.arise.android.demo.R
 
 /**
- * Created by wudaming on 2018/3/30.
+ * 嵌套滑动机制内置实现版本
  */
 class NestedScrollingParent2 : LinearLayout {
 
