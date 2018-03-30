@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.arise.android.demo.nestedscrolling.NestedScrollingParent2
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.arise.android.demo.nestedscrolling.NestedScrolling2Activity">
+    <com.arise.android.demo.nestedscrolling.NestedScrollingChildView
+        android:id="@+id/nestedScrollingChild"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"/>
+
+</com.arise.android.demo.nestedscrolling.NestedScrollingParent2>

@@ -17,8 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".nestedscrolling.NestedScrollingActivity" />
-        <activity android:name=".touch.TouchActivity"></activity>
+        <activity android:name=".nestedscrolling.NestedScrolling1Activity" />
+        <activity android:name=".touch.TouchActivity" />
+        <activity android:name=".nestedscrolling.NestedScrolling2Activity"></activity>
     </application>
 
 </manifest>
