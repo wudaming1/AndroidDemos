@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.arise.android.demo.nestedscrolling.NestedScrolling2Activity">
+    tools:context="com.arise.android.demo.nestedscrolling.NestedScrollingActivity2">
     <com.arise.android.demo.nestedscrolling.NestedScrollingChildView
         android:id="@+id/nestedScrollingChild"
         android:layout_width="match_parent"

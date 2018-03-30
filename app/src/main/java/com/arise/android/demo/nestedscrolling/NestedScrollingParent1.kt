@@ -14,9 +14,9 @@ import com.arise.android.demo.R
 /**
  * Created by wudaming on 2018/3/21.
  */
-class NestedScrollingParentView : LinearLayout, NestedScrollingParent {
+class NestedScrollingParent1 : LinearLayout, NestedScrollingParent {
 
-    private val TAG = NestedScrollingParentView::class.java.simpleName
+    private val TAG = NestedScrollingParent1::class.java.simpleName
 
     private val mParentHelper = NestedScrollingParentHelper(this)
 
