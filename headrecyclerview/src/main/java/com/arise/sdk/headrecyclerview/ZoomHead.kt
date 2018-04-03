@@ -1,9 +1,13 @@
 package com.arise.sdk.headrecyclerview
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 
 /**
@@ -20,13 +24,26 @@ class ZoomHead : ImageView, LinkedHead {
     private var originX = 0
     private var originY = 0
 
+    private val rollbackAnim= ValueAnimator()
+
     override var enableLinkedScroll: Boolean = true
 
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        initAnim()
+    }
+
+    private fun initAnim() {
+        rollbackAnim.addUpdateListener {
+            val value = it.animatedValue as Float
+            scale(value)
+        }
+        rollbackAnim.duration = 200
+        rollbackAnim.interpolator = DecelerateInterpolator()
+    }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -50,8 +67,16 @@ class ZoomHead : ImageView, LinkedHead {
     }
 
     override fun onLinkedScroll(x: Int, y: Int, consumed: IntArray) {
+        if (rollbackAnim.isRunning) {
+            rollbackAnim.cancel()
+        }
         val consumedVertical = y - zoomSelf(y)
         consumed[1] = consumedVertical
+    }
+
+    override fun onStopLinkedScroll() {
+        rollbackAnim.setFloatValues(1f * layoutParams.height / originHeight, 1f)
+        rollbackAnim.start()
     }
 
 
@@ -87,7 +112,7 @@ class ZoomHead : ImageView, LinkedHead {
         val yOffset = (layoutParams.height - originHeight) / 2
 
         val params = layoutParams
-        if(params is ViewGroup.MarginLayoutParams){
+        if (params is ViewGroup.MarginLayoutParams) {
             params.leftMargin = -xOffset
             params.topMargin = -yOffset
         }

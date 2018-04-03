@@ -20,5 +20,7 @@ interface LinkedHead {
      */
     fun onLinkedScroll(x: Int, y: Int, consumed: IntArray)
 
+    fun onStopLinkedScroll(){}
+
 
 }

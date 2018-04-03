@@ -35,6 +35,10 @@ class LinkScrollParent : LinearLayout {
         dispatchInternal(dx, dy, consumed)
     }
 
+    override fun onStopNestedScroll(child: View?) {
+        super.onStopNestedScroll(child)
+        linkedChildren.forEach { it.onStopLinkedScroll() }
+    }
 
     override fun onViewAdded(child: View) {
         super.onViewAdded(child)
