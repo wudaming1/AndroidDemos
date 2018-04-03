@@ -3,4 +3,5 @@
     <string name="go_nested_scrolling">NestedScrolling Demo</string>
     <string name="go_nested_scrolling2">NestedScrolling 5.0</string>
     <string name="touch_event">触摸事件分发Demo</string>
+    <string name="go_head_recycler_view">recyclerView头部联动Demo</string>
 </resources>

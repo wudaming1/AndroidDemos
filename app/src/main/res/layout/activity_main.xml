@@ -30,6 +30,13 @@
             android:id="@+id/goTouch"
             android:layout_marginTop="20dp"
             android:text="@string/touch_event"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/goHeadRecyclerView"
+            android:layout_marginTop="20dp"
+            android:text="@string/go_head_recycler_view"/>
     </LinearLayout>
 
 

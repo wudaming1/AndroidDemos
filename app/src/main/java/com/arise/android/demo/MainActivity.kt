@@ -2,6 +2,7 @@ package com.arise.android.demo
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.arise.android.demo.headrecyclerview.HeadRecyclerViewActivity
 import com.arise.android.demo.nestedscrolling.NestedScrollingActivity2
 import com.arise.android.demo.nestedscrolling.NestedScrollingActivity1
 import com.arise.android.demo.touch.TouchActivity
@@ -17,5 +18,9 @@ class MainActivity : AppCompatActivity() {
         goTouch.setOnClickListener { TouchActivity.launch(this@MainActivity) }
 
         goNestedScrolling2.setOnClickListener { NestedScrollingActivity2.launch(this@MainActivity) }
+
+        goHeadRecyclerView.setOnClickListener {
+            HeadRecyclerViewActivity.launch(this@MainActivity)
+        }
     }
 }

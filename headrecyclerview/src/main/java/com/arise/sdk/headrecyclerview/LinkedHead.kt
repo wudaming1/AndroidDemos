@@ -19,7 +19,6 @@ interface LinkedHead {
      * @param consumed 用于回传消息，传进来时一定是二维数组[0,0]
      */
     fun onLinkedScroll(x: Int, y: Int, consumed: IntArray){
-        TODO("consumed参数还需要修改定义，指定为二维数组")
     }
 
 

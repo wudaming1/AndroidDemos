@@ -4,7 +4,6 @@ import android.content.Context
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 
 /**
@@ -12,7 +11,7 @@ import android.widget.LinearLayout
  */
 class LinkScrollParent : LinearLayout {
 
-    private val heads = arrayListOf<LinkedHead>()
+    private val linkedChildren = arrayListOf<LinkedHead>()
 
     constructor(context: Context) : this(context, null)
 
@@ -23,7 +22,7 @@ class LinkScrollParent : LinearLayout {
     }
 
     private fun init(context: Context) {
-        findLinkScrollChild()
+        findLinkScrollChildren()
         isNestedScrollingEnabled = true
     }
 
@@ -35,6 +34,32 @@ class LinkScrollParent : LinearLayout {
         super.onNestedPreScroll(target, dx, dy, consumed)
         dispatchInternal(dx, dy, consumed)
     }
+
+
+    override fun onViewAdded(child: View) {
+        super.onViewAdded(child)
+        if(child is LinkedHead){
+            refreshLinkedChildren()
+        }
+    }
+
+    private fun refreshLinkedChildren() {
+        linkedChildren.clear()
+        findLinkScrollChildren()
+    }
+
+    override fun onViewRemoved(child: View) {
+        super.onViewRemoved(child)
+        if (child is LinkedHead)
+            deleteLinkedChild(child)
+    }
+
+    private fun deleteLinkedChild(child: LinkedHead) {
+        if (linkedChildren.contains(child) && child.enableLinkedScroll) {
+            linkedChildren.remove(child)
+        }
+    }
+
 
     private fun dispatchInternal(dx: Int, dy: Int, consumed: IntArray) {
 
@@ -52,8 +77,8 @@ class LinkScrollParent : LinearLayout {
         var unconsumedX = dx
         var unconsumedY = dy
         val childConsumed = IntArray(2)
-        if (heads.isNotEmpty()) {
-            heads.forEach {
+        if (linkedChildren.isNotEmpty()) {
+            linkedChildren.forEach {
                 it.onLinkedScroll(unconsumedX, unconsumedY, childConsumed)
 
                 unconsumedX -= childConsumed[0]
@@ -70,11 +95,11 @@ class LinkScrollParent : LinearLayout {
     }
 
 
-    private fun findLinkScrollChild() {
+    private fun findLinkScrollChildren() {
         (0..(childCount - 1))
                 .map { getChildAt(it) }
                 .filterIsInstance<LinkedHead>()
-                .filterTo(heads) { it.enableLinkedScroll }
+                .filterTo(linkedChildren) { it.enableLinkedScroll }
     }
 
 
