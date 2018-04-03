@@ -3,7 +3,6 @@ package com.arise.sdk.headrecyclerview
 import android.content.Context
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.stretch_head_layout.view.*

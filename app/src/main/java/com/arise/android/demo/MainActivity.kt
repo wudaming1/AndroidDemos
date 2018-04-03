@@ -3,6 +3,7 @@ package com.arise.android.demo
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.arise.android.demo.headrecyclerview.HeadRecyclerViewActivity
+import com.arise.android.demo.headrecyclerview.ZoomHeadActivity
 import com.arise.android.demo.nestedscrolling.NestedScrollingActivity2
 import com.arise.android.demo.nestedscrolling.NestedScrollingActivity1
 import com.arise.android.demo.touch.TouchActivity
@@ -21,6 +22,10 @@ class MainActivity : AppCompatActivity() {
 
         goHeadRecyclerView.setOnClickListener {
             HeadRecyclerViewActivity.launch(this@MainActivity)
+        }
+
+        goZoomView.setOnClickListener {
+            ZoomHeadActivity.launch(this@MainActivity)
         }
     }
 }

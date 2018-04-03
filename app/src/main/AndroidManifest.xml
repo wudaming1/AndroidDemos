@@ -20,7 +20,8 @@
         <activity android:name=".nestedscrolling.NestedScrollingActivity1" />
         <activity android:name=".touch.TouchActivity" />
         <activity android:name=".nestedscrolling.NestedScrollingActivity2" />
-        <activity android:name=".headrecyclerview.HeadRecyclerViewActivity"></activity>
+        <activity android:name=".headrecyclerview.HeadRecyclerViewActivity" />
+        <activity android:name=".headrecyclerview.ZoomHeadActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.arise.sdk.headrecyclerview.LinkScrollParent
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.arise.sdk.headrecyclerview.ZoomHead
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@mipmap/certify_head_bg"
+            android:scaleType="fitXY"/>
+
+        <com.arise.android.demo.nestedscrolling.NestedScrollingChildView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.arise.sdk.headrecyclerview.LinkScrollParent>
+
+
+</RelativeLayout>
