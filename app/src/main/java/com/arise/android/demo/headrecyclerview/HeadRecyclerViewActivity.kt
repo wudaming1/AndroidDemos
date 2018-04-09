@@ -2,12 +2,13 @@ package com.arise.android.demo.headrecyclerview
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.arise.android.demo.R
 import com.arise.android.demo.nestedscrolling.NestedScrollingActivity
+import com.arise.tools.register_annotation.RegisterPage
 import kotlinx.android.synthetic.main.activity_head_recycler_view.*
 
+@RegisterPage(name = "HeadRecyclerViewActivity")
 class HeadRecyclerViewActivity : NestedScrollingActivity() {
 
     companion object {
