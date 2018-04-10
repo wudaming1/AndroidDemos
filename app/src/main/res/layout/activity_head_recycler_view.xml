@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.arise.android.demo.headrecyclerview.HeadRecyclerViewActivity">
+    tools:context="com.aries.android.demo.headrecyclerview.HeadRecyclerViewActivity">
 
-    <com.arise.sdk.headrecyclerview.LinkScrollParent
+    <com.aries.sdk.recyclerview.LinkScrollParent
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.arise.sdk.headrecyclerview.StretchHead
+        <com.aries.sdk.recyclerview.head.StretchHead
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:background="@color/colorPrimaryDark"/>
 
-        <com.arise.android.demo.nestedscrolling.NestedScrollingChildView
+        <com.aries.android.demo.nestedscrolling.NestedScrollingChildView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </com.arise.sdk.headrecyclerview.LinkScrollParent>
+    </com.aries.sdk.recyclerview.LinkScrollParent>
 
 
 </RelativeLayout>

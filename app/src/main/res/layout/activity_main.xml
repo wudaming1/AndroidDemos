@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.arise.android.demo.MainActivity">
+    tools:context="com.aries.android.demo.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,6 +44,13 @@
             android:id="@+id/goZoomView"
             android:layout_marginTop="20dp"
             android:text="@string/go_head_recycler_view"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/goRecyclerDemo"
+            android:layout_marginTop="20dp"
+            android:text="RecyclerView demo"/>
     </LinearLayout>
 
 
