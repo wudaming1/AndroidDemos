@@ -3,7 +3,6 @@ package com.aries.sdk.recyclerview.head
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import com.aries.sdk.recyclerview.MovableLine
@@ -35,18 +34,20 @@ class CustomRecyclerView : RecyclerView {
 
         if (e.action == MotionEvent.ACTION_MOVE) {
             touchPath.moveTo(e.rawX.toInt(), e.rawY.toInt())
-            if (touchPath.isReady() && !canScrollVertically(-1)) {
-                Log.e("aries","point:$touchPath")
-                if (dispatchInternal(touchPath.getXOffset(), touchPath.getYOffset(), consume)) {
-                    return true
-                }
+            if (touchPath.isReady()) {
+                dispatchInternal(touchPath.getXOffset(), touchPath.getYOffset(), consume)
             }
         }
         if (e.action == MotionEvent.ACTION_UP) {
             touchPath.reset()
             linkedChildren.forEach { it.onStopLinkedScroll() }
         }
-        return super.onTouchEvent(e)
+        val result = super.onTouchEvent(e)
+        if (consume[1] < 0)
+            scrollBy(consume[0], consume[1])
+        consume[0] = 0
+        consume[1] = 0
+        return result
     }
 
     private fun init(context: Context) {
@@ -88,7 +89,7 @@ class CustomRecyclerView : RecyclerView {
         consumed[0] += childrenConsume[0]
         consumed[1] += childrenConsume[1]
 
-        return consumed[0] !=0 || consumed[1] != 0
+        return consumed[0] != 0 || consumed[1] != 0
     }
 
     private fun dispatchToChildren(dx: Int, dy: Int, consumed: IntArray) {

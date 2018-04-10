@@ -4,7 +4,6 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
-import android.util.Log
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
@@ -23,7 +22,7 @@ class ZoomHead : ImageView, LinkedHead {
     private var originX = 0
     private var originY = 0
 
-    private val rollbackAnim= ValueAnimator()
+    private val rollbackAnim = ValueAnimator()
 
     override var enableLinkedScroll: Boolean = true
 
@@ -69,7 +68,9 @@ class ZoomHead : ImageView, LinkedHead {
         if (rollbackAnim.isRunning) {
             rollbackAnim.cancel()
         }
-        Log.e("aries","y:"+y)
+        if (getY() < 0 && y > 0) {
+            return
+        }
         val consumedVertical = y - zoomSelf(y)
         consumed[1] = consumedVertical
     }
