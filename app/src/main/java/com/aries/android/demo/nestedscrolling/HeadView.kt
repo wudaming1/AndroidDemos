@@ -4,10 +4,11 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.aries.android.demo.DensityUtils
 import com.aries.android.demo.R
+import com.aries.base.utils.DensityUtils
 
 /**
  * Created by wudaming on 2018/3/26.
@@ -17,6 +18,8 @@ class HeadView : RelativeLayout {
     private val maxHeight = DensityUtils.dip2px(100f)
     private val minHeight = DensityUtils.dip2px(40f)
     private var currentHeight = 0
+
+    private var enableMove = true
 
 
     private lateinit var TVtitle: TextView
@@ -43,18 +46,24 @@ class HeadView : RelativeLayout {
         return unconsumed
     }
 
-    fun canStretch():Boolean {
-        val result = currentHeight < maxHeight
+    fun canStretch(): Boolean {
 
-        return result
+        return currentHeight < maxHeight
     }
 
     fun canShrink() = currentHeight > minHeight
 
+    private fun canMove(): Boolean {
+        if (enableMove) {
+            return y < 0 && visibility == View.VISIBLE
+        }
+        return false
+    }
+
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         currentHeight = h
-        Log.e("HeadView","onSizeChanged:$currentHeight")
+        Log.e("HeadView", "onSizeChanged:$currentHeight")
         super.onSizeChanged(w, h, oldw, oldh)
     }
 

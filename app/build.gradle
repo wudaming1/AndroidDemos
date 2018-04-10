@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
 
     implementation project(':headrecyclerview')
+    implementation project(':base')
     implementation project(':pageregister')
     implementation project(':register-annotation')
     kapt project(':register-compiler')
