@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
-import com.aries.sdk.recyclerview.head.LinkedHead
 
 /**
  * Created by wudaming on 2018/4/3.
@@ -104,18 +103,16 @@ class ZoomHead : ImageView, LinkedHead {
     private fun scale(rate: Float) {
         layoutParams.height = (originHeight * rate).toInt()
         layoutParams.width = (originWidth * rate).toInt()
-        moveToOriginCenter()
+        moveToHorizCenter()
         requestLayout()
     }
 
-    private fun moveToOriginCenter() {
+    private fun moveToHorizCenter() {
         val xOffset = (layoutParams.width - originWidth) / 2
-        val yOffset = (layoutParams.height - originHeight) / 2
 
         val params = layoutParams
         if (params is ViewGroup.MarginLayoutParams) {
             params.leftMargin = -xOffset
-            params.topMargin = -yOffset
         }
     }
 }
