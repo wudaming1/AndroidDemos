@@ -8,13 +8,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.aries.sdk.recyclerview.head.ZoomHead
+        <com.aries.sdk.recyclerview.head.StretchHead
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@mipmap/certify_head_bg"
-            android:scaleType="fitXY"/>
+            android:layout_height="100dp"
+            android:background="@color/colorPrimaryDark"/>
 
-        <com.aries.android.demo.nestedscrolling.NestedScrollingChildView
+        <com.arise.demo.nestedscrolling.NestedScrollingChildView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

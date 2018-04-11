@@ -1,4 +1,4 @@
-package com.aries.android.demo.nestedscrolling
+package com.arise.demo.nestedscrolling
 
 import android.content.Context
 import android.support.v4.view.NestedScrollingParent
@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
-import com.aries.android.demo.R
 
 /**
  * 嵌套滑动机制接口实现版本

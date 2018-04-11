@@ -9,7 +9,7 @@
         <activity
             android:name="com.aries.sdk.recyclerview.activitys.HeadDemoActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name="com.aries.sdk.recyclerview.activitys.HomeActivity"/>
+        <activity android:name="com.aries.sdk.recyclerview.activitys.RecyclerHomeActivity" />
     </application>
 
 </manifest>

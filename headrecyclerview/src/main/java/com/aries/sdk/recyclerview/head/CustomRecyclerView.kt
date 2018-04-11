@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import com.aries.sdk.recyclerview.MovableLine
+import com.aries.base.MovableLine
 
 /**
  * Created by wudaming on 2018/4/9.

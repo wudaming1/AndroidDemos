@@ -1,19 +1,16 @@
-package com.aries.android.demo.headrecyclerview
+package com.arise.demo.nestedscrolling.activities
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.aries.android.demo.R
-import com.aries.android.demo.nestedscrolling.NestedScrollingActivity
-import com.aries.tools.register_annotation.RegisterPage
+import com.arise.demo.nestedscrolling.R
 import kotlinx.android.synthetic.main.activity_head_recycler_view.*
 
-@RegisterPage(name = "HeadRecyclerViewActivity")
 class HeadRecyclerViewActivity : NestedScrollingActivity() {
 
     companion object {
         fun launch(context: Context){
-            val intent = Intent(context,HeadRecyclerViewActivity::class.java)
+            val intent = Intent(context, HeadRecyclerViewActivity::class.java)
             context.startActivity(intent)
         }
     }

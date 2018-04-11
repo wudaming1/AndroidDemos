@@ -1,4 +1,4 @@
-package com.aries.android.demo.nestedscrolling
+package com.arise.demo.nestedscrolling
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.aries.android.demo.R
 import com.aries.base.utils.DensityUtils
 
 /**

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.aries.android.demo.nestedscrolling.NestedScrollingParent1
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.arise.demo.nestedscrolling.NestedScrollingParent2 xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.aries.android.demo.nestedscrolling.NestedScrollingChildView
+    <com.arise.demo.nestedscrolling.NestedScrollingChildView
         android:id="@+id/nestedScrollingChild"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"/>
-</com.aries.android.demo.nestedscrolling.NestedScrollingParent1>
+
+</com.arise.demo.nestedscrolling.NestedScrollingParent2>

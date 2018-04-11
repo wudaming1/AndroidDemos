@@ -1,4 +1,4 @@
-package com.aries.android.demo.nestedscrolling
+package com.arise.demo.nestedscrolling
 
 import android.content.Context
 import android.support.v4.view.NestedScrollingChild
@@ -13,8 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.aries.sdk.recyclerview.MovableLine
-import com.aries.android.demo.R
+import com.aries.base.MovableLine
 
 
 fun inflate(parent: ViewGroup, int: Int, attachToRoot: Boolean): View {

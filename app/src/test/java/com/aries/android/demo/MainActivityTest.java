@@ -2,8 +2,11 @@ package com.aries.android.demo;
 
 import android.content.Intent;
 
-import com.aries.sdk.recyclerview.activitys.HomeActivity;
+import com.aries.android.demo.touch.TouchActivity;
+import com.aries.sdk.recyclerview.activitys.RecyclerHomeActivity;
+import com.arise.demo.nestedscrolling.NestedScrollingMainActivity;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -19,10 +22,38 @@ import static org.junit.Assert.assertEquals;
 @RunWith(RobolectricTestRunner.class)
 public class MainActivityTest {
 
+    private MainActivity activity;
+
+    @Before
+    public void init() {
+        activity = Robolectric.setupActivity(MainActivity.class);
+    }
+
     @Test
-    public void goRecyclerViewDemo(){
-        MainActivity activity = Robolectric.setupActivity(MainActivity.class);
-        Intent expectedIntent = new Intent(activity, HomeActivity.class);
+    public void goTouchExp() {
+        Intent expectedIntent = new Intent(activity, TouchActivity.class);
+
+        activity.findViewById(R.id.goTouch).performClick();
+
+        Intent actualIntent = ShadowApplication.getInstance().getNextStartedActivity();
+
+        assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
+    }
+
+    @Test
+    public void goNestedScrollingDemo() {
+        Intent expectedIntent = new Intent(activity, NestedScrollingMainActivity.class);
+
+        activity.findViewById(R.id.goNestedScrolling).performClick();
+
+        Intent actualIntent = ShadowApplication.getInstance().getNextStartedActivity();
+
+        assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
+    }
+
+    @Test
+    public void goRecyclerViewDemo() {
+        Intent expectedIntent = new Intent(activity, RecyclerHomeActivity.class);
 
         activity.findViewById(R.id.goRecyclerDemo).performClick();
 

@@ -1,7 +1,8 @@
-package com.aries.android.demo.nestedscrolling
+package com.arise.demo.nestedscrolling.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import com.arise.demo.nestedscrolling.NestedScrollingChildView
 
 /**
  * Created by wudaming on 2018/3/30.
