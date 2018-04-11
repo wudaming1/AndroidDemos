@@ -3,8 +3,8 @@
     package="com.arise.demo.nestedscrolling">
 
     <application android:theme="@style/Theme.AppCompat">
-        <activity android:name=".activities.NestedScrollingActivity1" />
-        <activity android:name=".activities.NestedScrollingActivity2" />
+        <activity android:name=".activities.InterfaceNestedActivity" />
+        <activity android:name=".activities.BuildInNestedActivity" />
         <activity android:name=".activities.HeadRecyclerViewActivity" />
         <activity android:name=".activities.ZoomHeadActivity" />
         <activity android:name=".NestedScrollingMainActivity" />

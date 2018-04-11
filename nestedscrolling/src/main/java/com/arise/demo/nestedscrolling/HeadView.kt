@@ -12,7 +12,11 @@ import com.aries.base.utils.DensityUtils
 /**
  * Created by wudaming on 2018/3/26.
  */
-class HeadView : RelativeLayout {
+class HeadView : RelativeLayout, LinkedChild {
+
+    override var enableLinkedScroll: Boolean = true
+
+    override var enableLinkedMove: Boolean = false
 
     private val maxHeight = DensityUtils.dip2px(100f)
     private val minHeight = DensityUtils.dip2px(40f)
@@ -32,15 +36,30 @@ class HeadView : RelativeLayout {
         init(context)
     }
 
+    override fun onLinkedScroll(x: Int, y: Int, consumed: IntArray) {
+        consumed[0] = 0
+        consumed[1] = y - changeHeight(y)
+    }
+
     /**
      * @return 未消费offset
      */
     fun changeHeight(offsetY: Int): Int {
-        val unconsumed = safeOffsetHeight(offsetY)
+        val unconsumed = -safeOffsetHeight(-offsetY)
 
         if (unconsumed != offsetY) {
             moveContent()
             requestLayout()
+        }
+        return unconsumed
+    }
+
+
+    fun move(offsetY: Int): Int {
+        val bottom = y.toInt() + height
+        var unconsumed = 0
+        if (bottom >= 0) {
+            unconsumed = bottom + offsetY
         }
         return unconsumed
     }

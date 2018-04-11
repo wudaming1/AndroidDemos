@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.aries.android.demo.nestedscrolling.HeadView
+
+    <com.arise.demo.nestedscrolling.HeadView
         android:id="@+id/head"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/colorAccent"/>
+        android:background="@android:color/holo_blue_bright" />
 
 </merge>

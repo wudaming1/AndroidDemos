@@ -11,7 +11,7 @@ abstract class NestedScrollingActivity : AppCompatActivity() {
 
 
     protected fun initRecyclerView(view: NestedScrollingChildView) {
-        val dataList = arrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)
+        val dataList = IntArray(100) { i: Int -> i }
         val adapter = NestedScrollingChildView.SimpleAdapter()
         adapter.setData(dataList)
         view.layoutManager = LinearLayoutManager(this)

@@ -3,7 +3,9 @@ package com.arise.demo.nestedscrolling;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.arise.demo.nestedscrolling.activities.BuildInNestedActivity;
 import com.arise.demo.nestedscrolling.activities.HeadRecyclerViewActivity;
+import com.arise.demo.nestedscrolling.activities.InterfaceNestedActivity;
 import com.arise.demo.nestedscrolling.activities.ZoomHeadActivity;
 
 import org.junit.Before;
@@ -16,7 +18,7 @@ import org.robolectric.shadows.ShadowApplication;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by wudaming on 2018/4/11.
+ * 主要是页面跳转测试
  */
 
 @RunWith(RobolectricTestRunner.class)
@@ -37,6 +39,16 @@ public class NestedScrollingMainActivityTest {
     @Test
     public void goHeadRecyclerViewActivity() {
         checkGoActivity(R.id.goHead, HeadRecyclerViewActivity.class);
+    }
+
+    @Test
+    public void goBuildInNested() {
+        checkGoActivity(R.id.goBuildIn, BuildInNestedActivity.class);
+    }
+
+    @Test
+    public void goInterfaceNested() {
+        checkGoActivity(R.id.goInterfaceNested, InterfaceNestedActivity.class);
     }
 
 

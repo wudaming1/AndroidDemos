@@ -2,4 +2,6 @@
     <string name="app_name">nestedScrolling</string>
     <string name="go_zoom">头部放大示例</string>
     <string name="go_head">头部伸缩示例</string>
+    <string name="build_in_nested">内嵌方式嵌套滑动</string>
+    <string name="interface_nested">接口方式嵌套机制</string>
 </resources>
