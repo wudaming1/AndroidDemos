@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.TextView
 import com.aries.base.utils.DensityUtils
 
 /**
@@ -24,10 +24,6 @@ class HeadView : RelativeLayout, LinkedChild {
 
     private var enableMove = true
 
-
-    private lateinit var TVtitle: TextView
-
-
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -38,30 +34,76 @@ class HeadView : RelativeLayout, LinkedChild {
 
     override fun onLinkedScroll(x: Int, y: Int, consumed: IntArray) {
         consumed[0] = 0
-        consumed[1] = y - changeHeight(y)
+        var unconsumedY: Int
+        if (y > 0) {
+            //向上滑动手指
+            unconsumedY = changeHeight(y)
+            unconsumedY = move(unconsumedY)
+        } else {
+            //向下滑动手指
+            unconsumedY = move(y)
+            unconsumedY = changeHeight(unconsumedY)
+        }
+        consumed[1] = y - unconsumedY
+        if (consumed[1] != 0) {
+            requestLayout()
+        }
     }
 
     /**
+     * @param offsetY 上滑正，下滑负
+     *
      * @return 未消费offset
      */
     fun changeHeight(offsetY: Int): Int {
         val unconsumed = -safeOffsetHeight(-offsetY)
 
-        if (unconsumed != offsetY) {
-            moveContent()
-            requestLayout()
-        }
+
         return unconsumed
     }
 
 
-    fun move(offsetY: Int): Int {
-        val bottom = y.toInt() + height
-        var unconsumed = 0
-        if (bottom >= 0) {
-            unconsumed = bottom + offsetY
+    /**
+     * @param offsetY 上滑正，下滑负
+     *
+     * @return 未消费offset
+     */
+    private fun move(offsetY: Int): Int {
+        return if (offsetY >= 0) {
+            moveUp(offsetY)
+        } else {
+            -moveDown(Math.abs(offsetY))
         }
+    }
+
+    private fun moveUp(distance: Int): Int {
+        val params = layoutParams as ViewGroup.MarginLayoutParams
+        val bottom = height + params.topMargin
+        var unconsumed = distance
+        if (bottom in 1..distance) {
+            unconsumed = distance - bottom
+        } else if (bottom > distance) {
+            unconsumed = 0
+        }
+
+        params.topMargin -= distance - unconsumed
         return unconsumed
+
+    }
+
+    private fun moveDown(distance: Int): Int {
+        val params = layoutParams as ViewGroup.MarginLayoutParams
+        val maxCanMove = -params.topMargin
+        var unconsumed = distance
+        if (maxCanMove in 1..distance) {
+            unconsumed = distance - maxCanMove
+        } else if (maxCanMove > distance) {
+            unconsumed = 0
+        }
+        params.topMargin += distance - unconsumed
+
+        return unconsumed
+
     }
 
     fun canStretch(): Boolean {
@@ -92,7 +134,6 @@ class HeadView : RelativeLayout, LinkedChild {
     }
 
     private fun findView() {
-        TVtitle = findViewById(R.id.title)
     }
 
     /**
@@ -109,10 +150,6 @@ class HeadView : RelativeLayout, LinkedChild {
             layoutParams.height = safeHeight
         }
         return offset + height - safeHeight
-    }
-
-    private fun moveContent() {
-
     }
 
 
