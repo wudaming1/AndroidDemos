@@ -35,6 +35,8 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2 {
 
     private val linkedChildren = ArrayList<LinkedChild>()
 
+    var scrollingView: View? = null
+
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -74,10 +76,17 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2 {
 
                 val x = (e.getX(index) + 0.5f).toInt()
                 val y = (e.getY(index) + 0.5f).toInt()
-                val dx = mLastTouchX - x
-                val dy = mLastTouchY - y
+                var dx = mLastTouchX - x
+                var dy = mLastTouchY - y
                 val mScrollConsumed = IntArray(2)
                 dispatchInternal(dx, dy, mScrollConsumed)
+                dx -= mScrollConsumed[0]
+                dy -= mScrollConsumed[1]
+                if (dx != 0 || dy != 0) {
+                    scrollingView?.apply { this.scrollBy(dx, dy) }
+                }
+                mLastTouchX = x
+                mLastTouchY = y
             }
 
             MotionEvent.ACTION_POINTER_UP -> onPointerUp(e)
@@ -117,6 +126,10 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2 {
 
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray?, type: Int) {
+        scrollingView?.apply {
+            if (canScrollVertically(-1) && dy < 0)
+                return
+        }
         val safeConsumed = IntArray(2)
         dispatchInternal(dx, dy, safeConsumed)
         if (consumed != null) {

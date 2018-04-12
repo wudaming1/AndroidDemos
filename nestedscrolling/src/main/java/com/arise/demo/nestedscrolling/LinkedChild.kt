@@ -10,8 +10,8 @@ interface LinkedChild {
     var enableLinkedMove: Boolean
 
     /**
-     *  @param axis Flags consisting of {@link android.view.View#SCROLL_AXIS_HORIZONTAL},
-     *                         {@link android.view.View#SCROLL_AXIS_VERTICAL} or both
+     *  @param axis Flags consisting of {@link android.scrollingView.View#SCROLL_AXIS_HORIZONTAL},
+     *                         {@link android.scrollingView.View#SCROLL_AXIS_VERTICAL} or both
      */
     fun acceptScroll(axis: Int): Boolean = false
 

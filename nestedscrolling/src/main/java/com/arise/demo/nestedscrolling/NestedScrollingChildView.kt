@@ -27,26 +27,15 @@ class NestedScrollingChildView : RecyclerView, NestedScrollingChild {
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init()
     }
 
-    private fun init() {
-        isNestedScrollingEnabled = true
-    }
-
-    override fun dispatchNestedPreScroll(dx: Int, dy: Int, consumed: IntArray?, offsetInWindow: IntArray?, type: Int): Boolean {
-        if (canScrollVertically(-1) && dy < 0) {
-            return false
-        }
-        return super.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow, type)
-    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val content: TextView = view.findViewById(R.id.content)
 
         init {
 //            content.setOnClickListener {
-//                Toast.makeText(view.context,
+//                Toast.makeText(scrollingView.context,
 //                        makeToastContent(),
 //                        Toast.LENGTH_SHORT)
 //                        .show()
