@@ -4,6 +4,8 @@ import android.content.Context
 import android.support.v4.view.NestedScrollingParent2
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 
@@ -11,6 +13,13 @@ import android.widget.LinearLayout
  * 嵌套滑动机制内置实现版本
  */
 class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2 {
+
+    private val INVALID_POINTER = -1
+
+    private var mLastTouchX = 0
+    private var mLastTouchY = 0
+
+    private var mScrollPointerId = INVALID_POINTER
 
 
     override fun onStopNestedScroll(target: View, type: Int) {
@@ -39,6 +48,68 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2 {
 
     }
 
+    override fun onTouchEvent(e: MotionEvent): Boolean {
+        val action = e.actionMasked
+        val actionIndex = e.actionIndex
+        when (action) {
+            MotionEvent.ACTION_DOWN -> {
+                mScrollPointerId = e.getPointerId(0)
+                mLastTouchX = (e.x + 0.5f).toInt()
+                mLastTouchY = (e.y + 0.5f).toInt()
+            }
+
+            MotionEvent.ACTION_POINTER_DOWN -> {
+                mScrollPointerId = e.getPointerId(actionIndex)
+                mLastTouchX = (e.getX(actionIndex) + 0.5f).toInt()
+                mLastTouchY = (e.getY(actionIndex) + 0.5f).toInt()
+            }
+
+            MotionEvent.ACTION_MOVE -> {
+                val index = e.findPointerIndex(mScrollPointerId)
+                if (index < 0) {
+                    Log.e(TAG, "Error processing scroll; pointer index for id "
+                            + mScrollPointerId + " not found. Did any MotionEvents get skipped?")
+                    return false
+                }
+
+                val x = (e.getX(index) + 0.5f).toInt()
+                val y = (e.getY(index) + 0.5f).toInt()
+                val dx = mLastTouchX - x
+                val dy = mLastTouchY - y
+                val mScrollConsumed = IntArray(2)
+                dispatchInternal(dx, dy, mScrollConsumed)
+            }
+
+            MotionEvent.ACTION_POINTER_UP -> onPointerUp(e)
+
+            MotionEvent.ACTION_UP -> {
+                dispatchStop()
+            }
+            MotionEvent.ACTION_CANCEL -> dispatchStop()
+
+        }
+
+        return true
+    }
+
+    private fun onPointerUp(e: MotionEvent) {
+        val actionIndex = e.actionIndex
+        if (e.getPointerId(actionIndex) == mScrollPointerId) {
+            // Pick a new pointer to pick up the slack.
+            val newIndex = if (actionIndex == 0) 1 else 0
+            mScrollPointerId = e.getPointerId(newIndex)
+            mLastTouchX = (e.getX(newIndex) + 0.5f).toInt()
+            mLastTouchY = (e.getY(newIndex) + 0.5f).toInt()
+        }
+    }
+
+    private fun dispatchStop() {
+        if (linkedChildren.isNotEmpty()) {
+            linkedChildren.forEach {
+                it.onStopLinkedScroll()
+            }
+        }
+    }
 
     override fun onStartNestedScroll(child: View, target: View, axes: Int, type: Int): Boolean {
         return (axes and ViewCompat.SCROLL_AXIS_VERTICAL) != 0

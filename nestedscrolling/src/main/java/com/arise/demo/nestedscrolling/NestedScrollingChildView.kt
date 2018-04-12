@@ -34,7 +34,12 @@ class NestedScrollingChildView : RecyclerView, NestedScrollingChild {
         isNestedScrollingEnabled = true
     }
 
-
+    override fun dispatchNestedPreScroll(dx: Int, dy: Int, consumed: IntArray?, offsetInWindow: IntArray?, type: Int): Boolean {
+        if (canScrollVertically(-1) && dy < 0) {
+            return false
+        }
+        return super.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow, type)
+    }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val content: TextView = view.findViewById(R.id.content)

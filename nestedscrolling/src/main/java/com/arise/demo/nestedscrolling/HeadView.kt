@@ -131,6 +131,7 @@ class HeadView : RelativeLayout, LinkedChild {
         val inflater = LayoutInflater.from(context)
         inflater.inflate(R.layout.nested_scrolling_head_layout, this, true)
         findView()
+        isNestedScrollingEnabled = true
     }
 
     private fun findView() {
@@ -151,6 +152,5 @@ class HeadView : RelativeLayout, LinkedChild {
         }
         return offset + height - safeHeight
     }
-
 
 }
