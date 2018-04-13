@@ -1,13 +1,10 @@
-package com.arise.demo.nestedscrolling
+package com.arise.demo.nestedscrolling.activities
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.arise.demo.nestedscrolling.activities.BuildInNestedActivity
-import com.arise.demo.nestedscrolling.activities.HeadRecyclerViewActivity
-import com.arise.demo.nestedscrolling.activities.InterfaceNestedActivity
-import com.arise.demo.nestedscrolling.activities.ZoomHeadActivity
+import com.arise.demo.nestedscrolling.R
 import kotlinx.android.synthetic.main.activity_nested_scrolling_main.*
 
 class NestedScrollingMainActivity : AppCompatActivity() {

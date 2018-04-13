@@ -26,6 +26,7 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2 {
     }
 
     override fun onNestedScrollAccepted(child: View, target: View, axes: Int, type: Int) {
+        scrollingView = target
     }
 
     override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, type: Int) {
@@ -126,9 +127,9 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2 {
 
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray?, type: Int) {
-        scrollingView?.apply {
-            if (canScrollVertically(-1) && dy < 0)
-                return
+
+        if (target.canScrollVertically(-1) && dy < 0) {
+            return
         }
         val safeConsumed = IntArray(2)
         dispatchInternal(dx, dy, safeConsumed)

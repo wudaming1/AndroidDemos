@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.arise.demo.nestedscrolling.activities.BuildInNestedActivity;
 import com.arise.demo.nestedscrolling.activities.HeadRecyclerViewActivity;
 import com.arise.demo.nestedscrolling.activities.InterfaceNestedActivity;
+import com.arise.demo.nestedscrolling.activities.NestedScrollingMainActivity;
 import com.arise.demo.nestedscrolling.activities.ZoomHeadActivity;
 
 import org.junit.Before;

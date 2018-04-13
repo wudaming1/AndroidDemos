@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.aries.android.demo.touch.TouchActivity
 import com.aries.sdk.recyclerview.activitys.RecyclerHomeActivity
-import com.arise.demo.nestedscrolling.NestedScrollingMainActivity
+import com.arise.demo.nestedscrolling.activities.NestedScrollingMainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

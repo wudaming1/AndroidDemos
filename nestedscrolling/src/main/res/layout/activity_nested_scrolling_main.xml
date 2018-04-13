@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context="com.arise.demo.nestedscrolling.NestedScrollingMainActivity">
+    tools:context="com.arise.demo.nestedscrolling.activities.NestedScrollingMainActivity">
 
     <Button
         android:id="@+id/goZoom"

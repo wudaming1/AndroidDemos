@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import com.aries.android.demo.touch.TouchActivity;
 import com.aries.sdk.recyclerview.activitys.RecyclerHomeActivity;
-import com.arise.demo.nestedscrolling.NestedScrollingMainActivity;
+import com.arise.demo.nestedscrolling.activities.NestedScrollingMainActivity;
 
 import org.junit.Before;
 import org.junit.Test;

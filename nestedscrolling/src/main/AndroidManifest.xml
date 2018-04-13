@@ -7,7 +7,7 @@
         <activity android:name=".activities.BuildInNestedActivity" />
         <activity android:name=".activities.HeadRecyclerViewActivity" />
         <activity android:name=".activities.ZoomHeadActivity" />
-        <activity android:name=".NestedScrollingMainActivity" />
+        <activity android:name=".activities.NestedScrollingMainActivity" />
     </application>
 
 </manifest>
