@@ -21,6 +21,7 @@ class BuildInNestedActivity : NestedScrollingActivity() {
 
         initRecyclerView(nestedScrollingChild)
         nestedScrollingChild.isNestedScrollingEnabled = true
+        nestedParent.scrollingView = nestedScrollingChild
     }
 
 

@@ -166,7 +166,6 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2 {
     }
 
     private fun dispatchInternal(dx: Int, dy: Int, consumed: IntArray) {
-
         val childrenConsume = intArrayOf(0, 0)
         dispatchToChildren(dx, dy, childrenConsume)
         consumed[0] += childrenConsume[0]

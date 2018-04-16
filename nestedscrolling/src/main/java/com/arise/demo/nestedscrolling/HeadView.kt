@@ -2,7 +2,6 @@ package com.arise.demo.nestedscrolling
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,18 +49,6 @@ class HeadView : RelativeLayout, LinkedChild {
         }
     }
 
-    /**
-     * @param offsetY 上滑正，下滑负
-     *
-     * @return 未消费offset
-     */
-    fun changeHeight(offsetY: Int): Int {
-        val unconsumed = -safeOffsetHeight(-offsetY)
-
-
-        return unconsumed
-    }
-
 
     /**
      * @param offsetY 上滑正，下滑负
@@ -78,7 +65,7 @@ class HeadView : RelativeLayout, LinkedChild {
 
     private fun moveUp(distance: Int): Int {
         val params = layoutParams as ViewGroup.MarginLayoutParams
-        val bottom = height + params.topMargin
+        val bottom = params.height + params.topMargin
         var unconsumed = distance
         if (bottom in 1..distance) {
             unconsumed = distance - bottom
@@ -93,7 +80,7 @@ class HeadView : RelativeLayout, LinkedChild {
 
     private fun moveDown(distance: Int): Int {
         val params = layoutParams as ViewGroup.MarginLayoutParams
-        val maxCanMove = -params.topMargin
+        val maxCanMove = Math.abs(params.topMargin)
         var unconsumed = distance
         if (maxCanMove in 1..distance) {
             unconsumed = distance - maxCanMove
@@ -123,7 +110,6 @@ class HeadView : RelativeLayout, LinkedChild {
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         currentHeight = h
-        Log.e("HeadView", "onSizeChanged:$currentHeight")
         super.onSizeChanged(w, h, oldw, oldh)
     }
 
@@ -138,19 +124,21 @@ class HeadView : RelativeLayout, LinkedChild {
     }
 
     /**
+     * @param offset 上滑正，下滑负
+     *
      * @return 未消费的距离
      */
-    private fun safeOffsetHeight(offset: Int): Int {
-        var safeHeight = offset + height
-        if (safeHeight < minHeight) {
-            safeHeight = minHeight
-        } else if (safeHeight > maxHeight) {
-            safeHeight = maxHeight
+    fun changeHeight(offset: Int): Int {
+        val params = layoutParams as MarginLayoutParams
+        var targetHeight = params.height - offset
+        if (targetHeight < minHeight) {
+            targetHeight = minHeight
+        } else if (targetHeight > maxHeight) {
+            targetHeight = maxHeight
         }
-        layoutParams?.apply {
-            layoutParams.height = safeHeight
-        }
-        return offset + height - safeHeight
+        val unconsumed = -(params.height - offset - targetHeight)
+        params.height = targetHeight
+        return unconsumed
     }
 
 }

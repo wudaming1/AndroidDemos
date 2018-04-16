@@ -11,7 +11,7 @@
         android:layout_height="100dp"
         android:background="@android:color/holo_blue_bright" />
 
-    <android.support.v7.widget.RecyclerView
+    <com.arise.demo.nestedscrolling.CustomRecyclerView
         android:id="@+id/nestedScrollingChild"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
