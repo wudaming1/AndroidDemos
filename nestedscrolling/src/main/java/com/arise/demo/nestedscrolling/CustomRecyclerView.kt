@@ -67,12 +67,13 @@ class CustomRecyclerView : RecyclerView {
 
     }
 
-    fun changeScrollState() {
+    private fun changeScrollState() {
 
         val cls = RecyclerView::class.java
         val mothod = cls.getDeclaredMethod("setScrollState", Int::class.java)
         mothod.isAccessible = true
         mothod.invoke(this, 1)
+        shouldChange = false
     }
 
 }
