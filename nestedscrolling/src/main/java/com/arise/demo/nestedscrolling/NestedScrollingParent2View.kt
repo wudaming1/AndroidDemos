@@ -87,31 +87,27 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
     override fun onTouchEvent(e: MotionEvent): Boolean {
         val action = e.actionMasked
         val actionIndex = e.actionIndex
-        val vtev = MotionEvent.obtain(e)
+        val event = MotionEvent.obtain(e)
         var eventAddedToVelocityTracker = false
         when (action) {
             MotionEvent.ACTION_DOWN -> {
-                mScrollPointerId = e.getPointerId(0)
-                mLastTouchX = (e.x + 0.5f).toInt()
-                mLastTouchY = (e.y + 0.5f).toInt()
+                recordEventMessage(event, 0)
             }
 
             MotionEvent.ACTION_POINTER_DOWN -> {
-                mScrollPointerId = e.getPointerId(actionIndex)
-                mLastTouchX = (e.getX(actionIndex) + 0.5f).toInt()
-                mLastTouchY = (e.getY(actionIndex) + 0.5f).toInt()
+                recordEventMessage(event, actionIndex)
             }
 
             MotionEvent.ACTION_MOVE -> {
-                val index = e.findPointerIndex(mScrollPointerId)
+                val index = event.findPointerIndex(mScrollPointerId)
                 if (index < 0) {
                     Log.e(TAG, "Error processing scroll; pointer index for id "
                             + mScrollPointerId + " not found. Did any MotionEvents get skipped?")
                     return false
                 }
 
-                val x = (e.getX(index) + 0.5f).toInt()
-                val y = (e.getY(index) + 0.5f).toInt()
+                val x = (event.getX(index) + 0.5f).toInt()
+                val y = (event.getY(index) + 0.5f).toInt()
                 val dx = mLastTouchX - x
                 val dy = mLastTouchY - y
                 dispatchInternal(dx, dy)
@@ -119,17 +115,13 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
                 mLastTouchY = y
             }
 
-            MotionEvent.ACTION_POINTER_UP -> onPointerUp(e)
+            MotionEvent.ACTION_POINTER_UP -> onPointerUp(event)
 
             MotionEvent.ACTION_UP -> {
-                mVelocityTracker.addMovement(vtev)
+                mVelocityTracker.addMovement(event)
                 eventAddedToVelocityTracker = true
-                mVelocityTracker.computeCurrentVelocity(1000, viewConfig.scaledMaximumFlingVelocity.toFloat())
+                startFling()
 
-                scroller.fling(0, 0, 0, getVelocityY()
-                        , Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE)
-                postOnAnimation(this)
-                dispatchStop()
                 mVelocityTracker.clear()
             }
             MotionEvent.ACTION_CANCEL -> {
@@ -139,10 +131,21 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
 
         }
         if (!eventAddedToVelocityTracker) {
-            mVelocityTracker.addMovement(vtev)
+            mVelocityTracker.addMovement(event)
         }
-        vtev.recycle()
+        event.recycle()
         return true
+    }
+
+    private fun startFling() {
+        mVelocityTracker.computeCurrentVelocity(1000, viewConfig.scaledMaximumFlingVelocity.toFloat())
+        if (getVelocityY() != 0) {
+            scroller.fling(0, 0, 0, getVelocityY()
+                    , Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE)
+            postOnAnimation(this)
+        } else {
+            dispatchStop()
+        }
     }
 
     private fun onPointerUp(e: MotionEvent) {
@@ -150,10 +153,14 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
         if (e.getPointerId(actionIndex) == mScrollPointerId) {
             // Pick a new pointer to pick up the slack.
             val newIndex = if (actionIndex == 0) 1 else 0
-            mScrollPointerId = e.getPointerId(newIndex)
-            mLastTouchX = (e.getX(newIndex) + 0.5f).toInt()
-            mLastTouchY = (e.getY(newIndex) + 0.5f).toInt()
+            recordEventMessage(e, newIndex)
         }
+    }
+
+    private fun recordEventMessage(e: MotionEvent, actionIndex: Int) {
+        mScrollPointerId = e.getPointerId(actionIndex)
+        mLastTouchX = (e.getX(actionIndex) + 0.5f).toInt()
+        mLastTouchY = (e.getY(actionIndex) + 0.5f).toInt()
     }
 
     override fun onViewAdded(child: View) {
@@ -243,6 +250,8 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
             mLastScrollY = y
 
             postOnAnimation(this)
+        } else {
+            dispatchStop()
         }
     }
 
