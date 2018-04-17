@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.arise.demo.nestedscrolling.R
-import kotlinx.android.synthetic.main.activity_nested_scrolling2.*
+import kotlinx.android.synthetic.main.activity_nested_build_in.*
 
 class BuildInNestedActivity : NestedScrollingActivity() {
 
@@ -17,7 +17,7 @@ class BuildInNestedActivity : NestedScrollingActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nested_scrolling2)
+        setContentView(R.layout.activity_nested_build_in)
 
         initRecyclerView(nestedScrollingChild)
         nestedScrollingChild.isNestedScrollingEnabled = true

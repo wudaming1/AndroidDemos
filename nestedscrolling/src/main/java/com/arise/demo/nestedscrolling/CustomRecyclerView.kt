@@ -46,18 +46,10 @@ class CustomRecyclerView : RecyclerView {
                 vtev.offsetLocation(scrollOffset[0].toFloat(), scrollOffset[1].toFloat())
             }
             MotionEvent.ACTION_CANCEL -> {
-                shouldChange = false
-                scrollOffset[0] = 0
-                scrollOffset[1] = 0
-                location[0] = 0
-                location[1] = 0
+                resetTouch()
             }
             MotionEvent.ACTION_UP -> {
-                shouldChange = false
-                scrollOffset[0] = 0
-                scrollOffset[1] = 0
-                location[0] = 0
-                location[1] = 0
+                resetTouch()
             }
         }
 
@@ -67,12 +59,19 @@ class CustomRecyclerView : RecyclerView {
 
     }
 
+    private fun resetTouch() {
+        scrollOffset[0] = 0
+        scrollOffset[1] = 0
+        location[0] = 0
+        location[1] = 0
+    }
+
     private fun changeScrollState() {
 
         val cls = RecyclerView::class.java
-        val mothod = cls.getDeclaredMethod("setScrollState", Int::class.java)
-        mothod.isAccessible = true
-        mothod.invoke(this, 1)
+        val method = cls.getDeclaredMethod("setScrollState", Int::class.java)
+        method.isAccessible = true
+        method.invoke(this, 1)
         shouldChange = false
     }
 

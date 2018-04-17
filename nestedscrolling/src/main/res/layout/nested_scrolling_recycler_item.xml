@@ -10,11 +10,11 @@
         android:gravity="center"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
-        android:textColor="@color/colorAccent"
+        android:textColor="#FF4081"
         android:textSize="14dp" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/colorAccent"/>
+        android:background="#FF4081" />
 
 </LinearLayout>
