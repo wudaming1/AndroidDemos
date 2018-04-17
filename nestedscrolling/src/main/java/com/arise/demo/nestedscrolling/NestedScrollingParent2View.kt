@@ -52,6 +52,7 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
     }
 
     override fun onStartNestedScroll(child: View, target: View, axes: Int, type: Int): Boolean {
+        cancelFling()
         return (axes and ViewCompat.SCROLL_AXIS_VERTICAL) != 0
     }
 
@@ -92,6 +93,7 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
         when (action) {
             MotionEvent.ACTION_DOWN -> {
                 recordEventMessage(event, 0)
+                cancelFling()
             }
 
             MotionEvent.ACTION_POINTER_DOWN -> {
@@ -139,13 +141,20 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
 
     private fun startFling() {
         mVelocityTracker.computeCurrentVelocity(1000, viewConfig.scaledMaximumFlingVelocity.toFloat())
-        if (getVelocityY() != 0) {
-            scroller.fling(0, 0, 0, getVelocityY()
+        val velocity = getVelocityY()
+        if (velocity != 0) {
+            scroller.fling(0, 0, 0, velocity
                     , Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE)
             postOnAnimation(this)
         } else {
             dispatchStop()
         }
+    }
+
+    private fun cancelFling() {
+        scroller.forceFinished(true)
+        mLastScrollX = 0
+        mLastScrollY = 0
     }
 
     private fun onPointerUp(e: MotionEvent) {
@@ -194,6 +203,7 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
         dispatchToChildren(dx, dy, mScrollConsumed)
         dx1 -= mScrollConsumed[0]
         dy1 -= mScrollConsumed[1]
+        Log.e("wdm", "before($dx,$dy)==curr($dx1,$dy1)")
         if (dx1 != 0 || dy1 != 0) {
             scrollingView?.apply { this.scrollBy(dx1, dy1) }
         }
@@ -221,6 +231,8 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
     }
 
     private fun dispatchStop() {
+        mLastScrollY = 0
+        mLastScrollX = 0
         if (linkedChildren.isNotEmpty()) {
             linkedChildren.forEach {
                 it.onStopLinkedScroll()
@@ -262,10 +274,8 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
             0
         } else {
             Math.max(-viewConfig.scaledMaximumFlingVelocity,
-                    Math.min(velocityY, viewConfig.scaledMaximumFlingVelocity))
+                    Math.min(rawVelocityY.toInt(), viewConfig.scaledMaximumFlingVelocity))
         }
-
-
         return velocityY
     }
 
