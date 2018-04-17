@@ -1,5 +1,6 @@
 package com.arise.demo.nestedscrolling
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.view.NestedScrollingParent2
 import android.support.v4.view.ViewCompat
@@ -85,6 +86,7 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(e: MotionEvent): Boolean {
         val action = e.actionMasked
         val actionIndex = e.actionIndex
@@ -203,7 +205,6 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
         dispatchToChildren(dx, dy, mScrollConsumed)
         dx1 -= mScrollConsumed[0]
         dy1 -= mScrollConsumed[1]
-        Log.e("wdm", "before($dx,$dy)==curr($dx1,$dy1)")
         if (dx1 != 0 || dy1 != 0) {
             scrollingView?.apply { this.scrollBy(dx1, dy1) }
         }
@@ -231,8 +232,6 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
     }
 
     private fun dispatchStop() {
-        mLastScrollY = 0
-        mLastScrollX = 0
         if (linkedChildren.isNotEmpty()) {
             linkedChildren.forEach {
                 it.onStopLinkedScroll()
@@ -256,7 +255,6 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
         if (scroller.computeScrollOffset()) {
             val x = scroller.currX
             val y = scroller.currY
-            Log.e("wdm", "last($mLastScrollX,$mLastScrollY)==curr($x,$y)")
             dispatchInternal(mLastScrollX - x, mLastScrollY - y)
             mLastScrollX = x
             mLastScrollY = y
@@ -264,11 +262,13 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
             postOnAnimation(this)
         } else {
             dispatchStop()
+            mLastScrollY = 0
+            mLastScrollX = 0
         }
     }
 
     private fun getVelocityY(): Int {
-        var velocityY = 0
+        val velocityY: Int
         val rawVelocityY = mVelocityTracker.getYVelocity(mScrollPointerId)
         velocityY = if (Math.abs(rawVelocityY) < viewConfig.scaledMinimumFlingVelocity) {
             0
