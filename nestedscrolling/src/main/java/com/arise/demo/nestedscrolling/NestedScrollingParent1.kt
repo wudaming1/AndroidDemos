@@ -19,7 +19,7 @@ class NestedScrollingParent1 : LinearLayout, NestedScrollingParent {
 
     private val mParentHelper = NestedScrollingParentHelper(this)
 
-    private lateinit var head: HeadView
+    private lateinit var head: MutableRelativeLayout
 
     constructor(context: Context) : this(context, null)
 
@@ -44,11 +44,11 @@ class NestedScrollingParent1 : LinearLayout, NestedScrollingParent {
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray) {
         Log.e(TAG, "onNestedPreScroll")
-        val re = canScrollVertical(dy)
-        if (re) {
-            consumed[0] = 0
-            consumed[1] = doScrollVertical(dy)
-        }
+//        val re = canScrollVertical(dy)
+//        if (re) {
+//            consumed[0] = 0
+//            consumed[1] = doScrollVertical(dy)
+//        }
     }
 
     override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int) {
@@ -74,14 +74,14 @@ class NestedScrollingParent1 : LinearLayout, NestedScrollingParent {
         return mParentHelper.nestedScrollAxes
     }
 
-
-    private fun canScrollVertical(offset: Int): Boolean {
-        return if (offset < 0) {
-            head.canShrink()
-        } else {
-            head.canStretch()
-        }
-    }
+//
+//    private fun canScrollVertical(offset: Int): Boolean {
+//        return if (offset < 0) {
+//            head.canShrink()
+//        } else {
+//            head.canStretch()
+//        }
+//    }
 
     /**
      * @return 真实消耗的滑动距离

@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.arise.demo.nestedscrolling.NestedScrollingParent2View xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nestedParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.arise.demo.nestedscrolling.HeadView
+    <com.arise.demo.nestedscrolling.MutableRelativeLayout
         android:id="@+id/head"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@android:color/holo_blue_bright" />
+        android:background="@android:color/holo_blue_bright"
+        app:enableLinkedScroll="true"
+        app:enableMove="false"
+        app:maxHeight="200dp"
+        app:minHeight="90dp" />
 
     <com.arise.demo.nestedscrolling.CustomRecyclerView
         android:id="@+id/nestedScrollingChild"

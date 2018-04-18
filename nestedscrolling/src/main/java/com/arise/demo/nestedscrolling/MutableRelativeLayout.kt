@@ -9,29 +9,42 @@ import android.widget.RelativeLayout
 import com.aries.base.utils.DensityUtils
 
 /**
- * Created by wudaming on 2018/3/26.
+ * 关联滑动父控件，拉伸类型。
  */
-class HeadView : RelativeLayout, LinkedChild {
+class MutableRelativeLayout : RelativeLayout, LinkedChild {
 
     override var enableLinkedScroll: Boolean = true
-
     override var enableLinkedMove: Boolean = false
+    private var maxHeight = DensityUtils.dip2px(100f)
+    private var minHeight = DensityUtils.dip2px(40f)
 
-    private val maxHeight = DensityUtils.dip2px(100f)
-    private val minHeight = DensityUtils.dip2px(40f)
     private var currentHeight = 0
-
-    private var enableMove = true
 
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
+            : super(context, attrs, defStyleAttr) {
         init(context)
+        attrs?.apply {
+            val typedArray = context.obtainStyledAttributes(this
+                    , R.styleable.MutableRelativeLayout)
+            maxHeight = typedArray.getDimensionPixelSize(R.styleable.MutableRelativeLayout_maxHeight
+                    , maxHeight)
+            minHeight = typedArray.getDimensionPixelSize(R.styleable.MutableRelativeLayout_minHeight
+                    , minHeight)
+
+            enableLinkedMove = typedArray.getBoolean(R.styleable.MutableRelativeLayout_enableMove, true)
+
+            enableLinkedScroll = typedArray.getBoolean(R.styleable.MutableRelativeLayout_enableLinkedScroll, true)
+
+            typedArray.recycle()
+        }
+
     }
 
-    override fun onLinkedScroll(x: Int, y: Int, consumed: IntArray) {
+    override fun onLinkedScroll(x: Int, y: Int, consumed: IntArray, type: Int) {
         consumed[0] = 0
         var unconsumedY: Int
         if (y > 0) {
@@ -56,11 +69,21 @@ class HeadView : RelativeLayout, LinkedChild {
      * @return 未消费offset
      */
     private fun move(offsetY: Int): Int {
+        if (!canMove()) {
+            return offsetY
+        }
         return if (offsetY >= 0) {
             moveUp(offsetY)
         } else {
             -moveDown(Math.abs(offsetY))
         }
+    }
+
+    private fun canMove(): Boolean {
+        if (enableLinkedMove) {
+            return visibility == View.VISIBLE
+        }
+        return false
     }
 
     private fun moveUp(distance: Int): Int {
@@ -92,21 +115,6 @@ class HeadView : RelativeLayout, LinkedChild {
         return unconsumed
 
     }
-
-    fun canStretch(): Boolean {
-
-        return currentHeight < maxHeight
-    }
-
-    fun canShrink() = currentHeight > minHeight
-
-    private fun canMove(): Boolean {
-        if (enableMove) {
-            return y < 0 && visibility == View.VISIBLE
-        }
-        return false
-    }
-
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         currentHeight = h

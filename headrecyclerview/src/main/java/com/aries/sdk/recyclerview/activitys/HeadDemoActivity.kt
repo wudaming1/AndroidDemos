@@ -2,15 +2,17 @@ package com.aries.sdk.recyclerview.activitys
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.aries.sdk.recyclerview.R
-import com.aries.sdk.recyclerview.head.*
+import com.aries.sdk.recyclerview.head.AdapterWrapper
+import com.aries.sdk.recyclerview.head.CustomRecyclerView
+import com.aries.sdk.recyclerview.head.SimpleAdapter
+import com.aries.sdk.recyclerview.head.ZoomHead
 import kotlinx.android.synthetic.main.activity_head_demo.*
 
 class HeadDemoActivity : AppCompatActivity() {
@@ -37,7 +39,7 @@ class HeadDemoActivity : AppCompatActivity() {
         val layoutParams = RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 600)
         stretchHead.layoutParams = layoutParams
-        stretchHead.setImageResource(R.mipmap.certify_head_bg)
+        stretchHead.setImageResource(R.mipmap.head_bg)
         stretchHead.scaleType = ImageView.ScaleType.FIT_XY
     }
 

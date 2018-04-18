@@ -63,7 +63,7 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
             return
         }
         val safeConsumed = IntArray(2)
-        dispatchToChildren(dx, dy, safeConsumed)
+        dispatchToChildren(dx, dy, safeConsumed, type)
         if (consumed != null) {
             consumed[0] = safeConsumed[0]
             consumed[1] = safeConsumed[1]
@@ -114,7 +114,7 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
                 val y = (event.getY(index) + 0.5f).toInt()
                 val dx = mLastTouchX - x
                 val dy = mLastTouchY - y
-                dispatchInternal(dx, dy)
+                dispatchInternal(dx, dy, ViewCompat.TYPE_TOUCH)
                 mLastTouchX = x
                 mLastTouchY = y
             }
@@ -198,11 +198,11 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
         }
     }
 
-    private fun dispatchInternal(dx: Int, dy: Int) {
+    private fun dispatchInternal(dx: Int, dy: Int, type: Int) {
         var dx1 = dx
         var dy1 = dy
         val mScrollConsumed = IntArray(2)
-        dispatchToChildren(dx, dy, mScrollConsumed)
+        dispatchToChildren(dx, dy, mScrollConsumed, type)
         dx1 -= mScrollConsumed[0]
         dy1 -= mScrollConsumed[1]
         if (dx1 != 0 || dy1 != 0) {
@@ -210,13 +210,13 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
         }
     }
 
-    private fun dispatchToChildren(dx: Int, dy: Int, consumed: IntArray) {
+    private fun dispatchToChildren(dx: Int, dy: Int, consumed: IntArray, type: Int) {
         var unconsumedX = dx
         var unconsumedY = dy
         val childConsumed = IntArray(2)
         if (linkedChildren.isNotEmpty()) {
             linkedChildren.forEach {
-                it.onLinkedScroll(unconsumedX, unconsumedY, childConsumed)
+                it.onLinkedScroll(unconsumedX, unconsumedY, childConsumed, type)
 
                 unconsumedX -= childConsumed[0]
                 unconsumedY -= childConsumed[1]
@@ -255,7 +255,7 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
         if (scroller.computeScrollOffset()) {
             val x = scroller.currX
             val y = scroller.currY
-            dispatchInternal(mLastScrollX - x, mLastScrollY - y)
+            dispatchInternal(mLastScrollX - x, mLastScrollY - y, ViewCompat.TYPE_NON_TOUCH)
             mLastScrollX = x
             mLastScrollY = y
 

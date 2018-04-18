@@ -5,7 +5,7 @@
     <com.aries.sdk.recyclerview.head.ZoomHead
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@mipmap/certify_head_bg"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY"
+        android:src="@mipmap/head_bg" />
 
 </merge>

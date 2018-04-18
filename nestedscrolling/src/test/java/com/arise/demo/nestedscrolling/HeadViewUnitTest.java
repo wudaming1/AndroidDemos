@@ -29,7 +29,7 @@ public class HeadViewUnitTest {
 
     @Test
     public void changeHeightTest() {
-        HeadView headView = activity.findViewById(R.id.head);
+        MutableRelativeLayout headView = activity.findViewById(R.id.head);
         int inputOffset = DensityUtils.INSTANCE.dip2px(70);
         int height = headView.getHeight();
         int currentHeight = height - (inputOffset - headView.changeHeight(inputOffset));
