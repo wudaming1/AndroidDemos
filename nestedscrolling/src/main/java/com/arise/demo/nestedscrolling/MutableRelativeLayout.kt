@@ -2,7 +2,6 @@ package com.arise.demo.nestedscrolling
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
@@ -26,7 +25,6 @@ class MutableRelativeLayout : RelativeLayout, LinkedChild {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
             : super(context, attrs, defStyleAttr) {
-        init(context)
         attrs?.apply {
             val typedArray = context.obtainStyledAttributes(this
                     , R.styleable.MutableRelativeLayout)
@@ -119,16 +117,6 @@ class MutableRelativeLayout : RelativeLayout, LinkedChild {
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         currentHeight = h
         super.onSizeChanged(w, h, oldw, oldh)
-    }
-
-    private fun init(context: Context) {
-        val inflater = LayoutInflater.from(context)
-        inflater.inflate(R.layout.nested_scrolling_head_layout, this, true)
-        findView()
-        isNestedScrollingEnabled = true
-    }
-
-    private fun findView() {
     }
 
     /**
