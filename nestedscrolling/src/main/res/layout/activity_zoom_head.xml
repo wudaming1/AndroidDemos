@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.arise.demo.nestedscrolling.ZoomRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@mipmap/certify_head_bg" />
+    </com.arise.demo.nestedscrolling.ZoomRelativeLayout>
+
     <com.arise.demo.nestedscrolling.CustomRecyclerView
         android:id="@+id/nestedScrollingChild"
         android:layout_width="match_parent"

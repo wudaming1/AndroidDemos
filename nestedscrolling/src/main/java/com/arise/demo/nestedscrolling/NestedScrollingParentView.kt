@@ -132,7 +132,7 @@ class NestedScrollingParentView : LinearLayout, NestedScrollingParent2, Runnable
                 mVelocityTracker.addMovement(event)
                 eventAddedToVelocityTracker = true
                 startFling()
-
+                dispatchStop()
                 mVelocityTracker.clear()
             }
             MotionEvent.ACTION_CANCEL -> {

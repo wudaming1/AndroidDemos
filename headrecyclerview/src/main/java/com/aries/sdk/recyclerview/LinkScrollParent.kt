@@ -19,10 +19,10 @@ class LinkScrollParent : LinearLayout {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init(context)
+        init()
     }
 
-    private fun init(context: Context) {
+    private fun init() {
         findLinkScrollChildren()
         isNestedScrollingEnabled = true
     }

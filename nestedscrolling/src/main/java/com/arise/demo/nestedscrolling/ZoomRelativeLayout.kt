@@ -103,13 +103,20 @@ class ZoomRelativeLayout : RelativeLayout, LinkedChild {
     }
 
     override fun onLinkedScroll(x: Int, y: Int, consumed: IntArray, type: Int) {
-        if (rollbackAnim.isRunning) {
-            rollbackAnim.cancel()
+        if (type == ViewCompat.TYPE_TOUCH) {
+            if (rollbackAnim.isRunning) {
+                rollbackAnim.cancel()
+            }
+            if (getY() < 0 && y > 0) {
+                return
+            }
+            val consumedVertical = y + zoomSelf(-y)
+            consumed[1] = consumedVertical
         }
-        if (getY() < 0 && y > 0) {
-            return
-        }
-        val consumedVertical = y - zoomSelf(y)
-        consumed[1] = consumedVertical
+    }
+
+    override fun onStopLinkedScroll() {
+        rollbackAnim.setFloatValues(1f * layoutParams.height / originHeight, 1f)
+        rollbackAnim.start()
     }
 }
