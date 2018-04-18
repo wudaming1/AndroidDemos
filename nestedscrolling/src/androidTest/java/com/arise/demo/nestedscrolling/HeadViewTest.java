@@ -6,7 +6,7 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.arise.demo.nestedscrolling.activities.BuildInNestedActivity;
+import com.arise.demo.nestedscrolling.activities.StretchHeadActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,8 +20,8 @@ import org.junit.runner.RunWith;
 public class HeadViewTest {
 
     @Rule
-    public ActivityTestRule<BuildInNestedActivity> mActivityRule
-            = new ActivityTestRule<>(BuildInNestedActivity.class);
+    public ActivityTestRule<StretchHeadActivity> mActivityRule
+            = new ActivityTestRule<>(StretchHeadActivity.class);
 
     @Test
     public void testChangeHeight() {

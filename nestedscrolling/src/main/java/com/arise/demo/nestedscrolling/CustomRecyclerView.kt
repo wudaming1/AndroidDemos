@@ -1,5 +1,6 @@
 package com.arise.demo.nestedscrolling
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -22,6 +23,7 @@ class CustomRecyclerView : RecyclerView {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(e: MotionEvent): Boolean {
         val result: Boolean
         val action = e.actionMasked

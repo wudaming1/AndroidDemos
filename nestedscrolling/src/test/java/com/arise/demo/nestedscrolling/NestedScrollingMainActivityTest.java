@@ -3,10 +3,8 @@ package com.arise.demo.nestedscrolling;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.arise.demo.nestedscrolling.activities.BuildInNestedActivity;
-import com.arise.demo.nestedscrolling.activities.HeadRecyclerViewActivity;
-import com.arise.demo.nestedscrolling.activities.InterfaceNestedActivity;
 import com.arise.demo.nestedscrolling.activities.NestedScrollingMainActivity;
+import com.arise.demo.nestedscrolling.activities.StretchHeadActivity;
 import com.arise.demo.nestedscrolling.activities.ZoomHeadActivity;
 
 import org.junit.Before;
@@ -33,23 +31,13 @@ public class NestedScrollingMainActivityTest {
     }
 
     @Test
-    public void goZoomTest() {
-        checkGoActivity(R.id.goZoom, ZoomHeadActivity.class);
+    public void goBuildStretchHead() {
+        checkGoActivity(R.id.goStretchHead, StretchHeadActivity.class);
     }
 
     @Test
-    public void goHeadRecyclerViewActivity() {
-        checkGoActivity(R.id.goHead, HeadRecyclerViewActivity.class);
-    }
-
-    @Test
-    public void goBuildInNested() {
-        checkGoActivity(R.id.goBuildIn, BuildInNestedActivity.class);
-    }
-
-    @Test
-    public void goInterfaceNested() {
-        checkGoActivity(R.id.goInterfaceNested, InterfaceNestedActivity.class);
+    public void goZoomHead() {
+        checkGoActivity(R.id.goZoomHead, ZoomHeadActivity.class);
     }
 
 

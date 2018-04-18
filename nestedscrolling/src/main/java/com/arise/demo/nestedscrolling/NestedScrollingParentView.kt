@@ -16,7 +16,11 @@ import android.widget.OverScroller
 /**
  * 嵌套滑动机制内置实现版本
  */
-class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnable {
+class NestedScrollingParentView : LinearLayout, NestedScrollingParent2, Runnable {
+
+    private val TAG = NestedScrollingParentView::class.java.simpleName
+
+    var scrollingView: View? = null
 
     private val INVALID_POINTER = -1
 
@@ -34,27 +38,15 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
 
     private lateinit var viewConfig: ViewConfiguration
 
-    private val TAG = NestedScrollingParent2View::class.java.simpleName
-
     private val linkedChildren = ArrayList<LinkedChild>()
-
-    var scrollingView: View? = null
-
-
-    override fun onStopNestedScroll(target: View, type: Int) {
-        dispatchStop()
-    }
-
-    override fun onNestedScrollAccepted(child: View, target: View, axes: Int, type: Int) {
-        scrollingView = target
-    }
-
-    override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, type: Int) {
-    }
 
     override fun onStartNestedScroll(child: View, target: View, axes: Int, type: Int): Boolean {
         cancelFling()
         return (axes and ViewCompat.SCROLL_AXIS_VERTICAL) != 0
+    }
+
+    override fun onNestedScrollAccepted(child: View, target: View, axes: Int, type: Int) {
+        scrollingView = target
     }
 
     override fun onNestedPreScroll(target: View, dx: Int, dy: Int, consumed: IntArray?, type: Int) {
@@ -69,6 +61,21 @@ class NestedScrollingParent2View : LinearLayout, NestedScrollingParent2, Runnabl
             consumed[1] = safeConsumed[1]
         }
 
+    }
+
+    override fun onNestedScroll(target: View, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, type: Int) {
+    }
+
+    override fun onNestedPreFling(target: View, velocityX: Float, velocityY: Float): Boolean {
+        return false
+    }
+
+    override fun onNestedFling(target: View, velocityX: Float, velocityY: Float, consumed: Boolean): Boolean {
+        return false
+    }
+
+    override fun onStopNestedScroll(target: View, type: Int) {
+        dispatchStop()
     }
 
     constructor(context: Context) : this(context, null)

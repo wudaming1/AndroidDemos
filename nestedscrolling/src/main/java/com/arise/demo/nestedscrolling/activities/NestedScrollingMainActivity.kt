@@ -23,9 +23,7 @@ class NestedScrollingMainActivity : AppCompatActivity() {
     }
 
     private fun initRoute(context: NestedScrollingMainActivity) {
-        goZoom.setOnClickListener { ZoomHeadActivity.launch(context) }
-        goHead.setOnClickListener { HeadRecyclerViewActivity.launch(context) }
-        goBuildIn.setOnClickListener { BuildInNestedActivity.launch(context) }
-        goInterfaceNested.setOnClickListener { InterfaceNestedActivity.launch(context) }
+        goStretchHead.setOnClickListener { StretchHeadActivity.launch(context) }
+        goZoomHead.setOnClickListener { ZoomHeadActivity.launch(context) }
     }
 }

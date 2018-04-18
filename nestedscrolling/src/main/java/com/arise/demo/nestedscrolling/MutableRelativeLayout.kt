@@ -1,6 +1,7 @@
 package com.arise.demo.nestedscrolling
 
 import android.content.Context
+import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,10 @@ class MutableRelativeLayout : RelativeLayout, LinkedChild {
             typedArray.recycle()
         }
 
+    }
+
+    override fun acceptScroll(axes: Int): Boolean {
+        return (axes and ViewCompat.SCROLL_AXIS_VERTICAL) != 0
     }
 
     override fun onLinkedScroll(x: Int, y: Int, consumed: IntArray, type: Int) {

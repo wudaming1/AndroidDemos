@@ -10,7 +10,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.arise.demo.nestedscrolling.activities.BuildInNestedActivity;
+import com.arise.demo.nestedscrolling.activities.StretchHeadActivity;
 
 import org.hamcrest.Matcher;
 import org.junit.Rule;
@@ -25,8 +25,8 @@ import org.junit.runner.RunWith;
 public class BuildInActivityUITest {
 
     @Rule
-    public ActivityTestRule<BuildInNestedActivity> mActivityRule
-            = new ActivityTestRule<>(BuildInNestedActivity.class);
+    public ActivityTestRule<StretchHeadActivity> mActivityRule
+            = new ActivityTestRule<>(StretchHeadActivity.class);
 
     public static ViewAction touchEvent(final float[] start, final float[] end) {
         return new ViewAction() {
@@ -46,7 +46,7 @@ public class BuildInActivityUITest {
                 int[] location = new int[2];
                 view.getLocationOnScreen(location);
                 //下滑正数
-                boolean dirction = end[1] > start[1];
+                boolean direction = end[1] > start[1];
 
                 // Offset coordinates by view position
                 float[] coordinates = new float[]{start[0] + location[0], start[1] + location[1]};
@@ -56,7 +56,7 @@ public class BuildInActivityUITest {
                 // Send down , move, and  up
                 MotionEvent down = MotionEvents.sendDown(uiController, coordinates, precision).down;
 
-                if (dirction) {
+                if (direction) {
                     coordinates[1] += 5;
                 } else {
                     coordinates[1] -= 5;
@@ -65,7 +65,7 @@ public class BuildInActivityUITest {
                 while (coordinates[1] < endCoordinates[1]) {
                     uiController.loopMainThreadForAtLeast(20);
                     MotionEvents.sendMovement(uiController, down, coordinates);
-                    if (dirction) {
+                    if (direction) {
                         coordinates[1] += 5;
                     } else {
                         coordinates[1] -= 5;

@@ -2,7 +2,7 @@ package com.arise.demo.nestedscrolling;
 
 import com.aries.base.BaseApplication;
 import com.aries.base.utils.DensityUtils;
-import com.arise.demo.nestedscrolling.activities.BuildInNestedActivity;
+import com.arise.demo.nestedscrolling.activities.StretchHeadActivity;
 
 import junit.framework.Assert;
 
@@ -20,11 +20,11 @@ import org.robolectric.annotation.Config;
 @Config(application = BaseApplication.class)
 public class HeadViewUnitTest {
 
-    private BuildInNestedActivity activity;
+    private StretchHeadActivity activity;
 
     @Before
     public void init() {
-        activity = Robolectric.setupActivity(BuildInNestedActivity.class);
+        activity = Robolectric.setupActivity(StretchHeadActivity.class);
     }
 
     @Test

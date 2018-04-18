@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_zoom_head.*
 class ZoomHeadActivity : NestedScrollingActivity() {
 
     companion object {
-        fun launch(context: Context){
+        fun launch(context: Context) {
             val intent = Intent(context, ZoomHeadActivity::class.java)
             context.startActivity(intent)
         }
@@ -18,7 +18,8 @@ class ZoomHeadActivity : NestedScrollingActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_zoom_head)
-        initRecyclerView(recyclerView)
+
+        initRecyclerView(nestedScrollingChild)
     }
 
 }

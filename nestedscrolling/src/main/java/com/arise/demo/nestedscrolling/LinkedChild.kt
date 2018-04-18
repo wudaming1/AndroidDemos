@@ -10,10 +10,10 @@ interface LinkedChild {
     var enableLinkedMove: Boolean
 
     /**
-     *  @param axis Flags consisting of {@link android.scrollingView.View#SCROLL_AXIS_HORIZONTAL},
+     *  @param axes Flags consisting of {@link android.scrollingView.View#SCROLL_AXIS_HORIZONTAL},
      *                         {@link android.scrollingView.View#SCROLL_AXIS_VERTICAL} or both
      */
-    fun acceptScroll(axis: Int): Boolean = false
+    fun acceptScroll(axes: Int): Boolean
 
     /**
      * @param x 可用的x轴距离

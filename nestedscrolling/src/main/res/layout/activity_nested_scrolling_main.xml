@@ -8,11 +8,11 @@
     tools:context="com.arise.demo.nestedscrolling.activities.NestedScrollingMainActivity">
 
     <Button
-        android:id="@+id/goZoom"
+        android:id="@+id/goStretchHead"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/go_zoom"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/go_head_stretch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,39 +20,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/goHead"
+        android:id="@+id/goZoomHead"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="@string/go_head"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/goZoom" />
-
-    <Button
-        android:id="@+id/goBuildIn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/build_in_nested"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/goHead" />
-
-    <Button
-        android:id="@+id/goInterfaceNested"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/interface_nested"
+        android:text="@string/go_head_zoom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/goBuildIn" />
+        app:layout_constraintTop_toBottomOf="@+id/goStretchHead" />
 </android.support.constraint.ConstraintLayout>
