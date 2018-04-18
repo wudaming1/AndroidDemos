@@ -19,6 +19,7 @@ class ZoomRelativeLayout : RelativeLayout, LinkedChild {
     override var enableLinkedMove: Boolean = false
 
     private var maxScale = 1.5f
+    private var minScale = 0.9f
 
     private var originWidth = 0
     private var originHeight = 0
@@ -34,6 +35,16 @@ class ZoomRelativeLayout : RelativeLayout, LinkedChild {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
             : super(context, attrs, defStyleAttr) {
+
+        attrs?.apply {
+            val typedArray = context.obtainStyledAttributes(this, R.styleable.ZoomRelativeLayout)
+            maxScale = typedArray.getFloat(R.styleable.ZoomRelativeLayout_maxScale, maxScale)
+            minScale = typedArray.getFloat(R.styleable.ZoomRelativeLayout_minScale, minScale)
+            enableLinkedMove = typedArray.getBoolean(R.styleable.ZoomRelativeLayout_enableMove, true)
+            enableLinkedScroll = typedArray.getBoolean(R.styleable.ZoomRelativeLayout_enableLinkedScroll, true)
+            typedArray.recycle()
+        }
+
         initAnim()
     }
 
@@ -53,9 +64,9 @@ class ZoomRelativeLayout : RelativeLayout, LinkedChild {
                 release = (layoutParams.height + increment - originHeight * maxScale).toInt()
                 scale(maxScale)
             }
-            layoutParams.height + increment < originHeight -> {
+            layoutParams.height + increment < originHeight * minScale -> {
                 release = (layoutParams.height + increment - originHeight)
-                scale(1.0f)
+                scale(minScale)
             }
             else -> {
                 val scale = (layoutParams.height + increment) * 1.0f / originHeight

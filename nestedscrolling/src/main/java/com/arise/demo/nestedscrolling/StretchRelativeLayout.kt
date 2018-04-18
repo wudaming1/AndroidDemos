@@ -11,7 +11,7 @@ import com.aries.base.utils.DensityUtils
 /**
  * 关联滑动父控件，拉伸类型。
  */
-class MutableRelativeLayout : RelativeLayout, LinkedChild {
+class StretchRelativeLayout : RelativeLayout, LinkedChild {
 
     override var enableLinkedScroll: Boolean = true
     override var enableLinkedMove: Boolean = false
@@ -28,15 +28,15 @@ class MutableRelativeLayout : RelativeLayout, LinkedChild {
             : super(context, attrs, defStyleAttr) {
         attrs?.apply {
             val typedArray = context.obtainStyledAttributes(this
-                    , R.styleable.MutableRelativeLayout)
-            maxHeight = typedArray.getDimensionPixelSize(R.styleable.MutableRelativeLayout_maxHeight
+                    , R.styleable.StretchRelativeLayout)
+            maxHeight = typedArray.getDimensionPixelSize(R.styleable.StretchRelativeLayout_maxHeight
                     , maxHeight)
-            minHeight = typedArray.getDimensionPixelSize(R.styleable.MutableRelativeLayout_minHeight
+            minHeight = typedArray.getDimensionPixelSize(R.styleable.StretchRelativeLayout_minHeight
                     , minHeight)
 
-            enableLinkedMove = typedArray.getBoolean(R.styleable.MutableRelativeLayout_enableMove, true)
+            enableLinkedMove = typedArray.getBoolean(R.styleable.StretchRelativeLayout_enableMove, true)
 
-            enableLinkedScroll = typedArray.getBoolean(R.styleable.MutableRelativeLayout_enableLinkedScroll, true)
+            enableLinkedScroll = typedArray.getBoolean(R.styleable.StretchRelativeLayout_enableLinkedScroll, true)
 
             typedArray.recycle()
         }

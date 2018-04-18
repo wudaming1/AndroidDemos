@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="MutableRelativeLayout">
+
+    <attr name="enableMove" format="boolean" />
+    <attr name="enableLinkedScroll" format="boolean" />
+
+    <declare-styleable name="StretchRelativeLayout">
         <attr name="maxHeight" format="dimension" />
         <attr name="minHeight" format="dimension" />
-        <attr name="enableMove" format="boolean" />
-        <attr name="enableLinkedScroll" format="boolean" />
+        <attr name="enableMove" />
+        <attr name="enableLinkedScroll" />
+    </declare-styleable>
+
+    <declare-styleable name="ZoomRelativeLayout">
+        <attr name="maxScale" format="float" />
+        <attr name="minScale" format="float" />
+        <attr name="enableMove" />
+        <attr name="enableLinkedScroll" />
     </declare-styleable>
 </resources>
