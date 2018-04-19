@@ -1,21 +1,23 @@
-apply plugin: 'com.android.application'
-
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
+
+
+
     defaultConfig {
-        applicationId "com.arise.android.demo"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,17 +30,16 @@ android {
             includeAndroidResources = true
         }
     }
+
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':recyclerview')
-    implementation project(':nestedscrolling')
-    implementation project(':base')
-    implementation project(':pageregister')
     implementation project(':register-annotation')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     kapt project(':register-compiler')
+    implementation project(':base')
 
     testImplementation "org.robolectric:robolectric:3.8"
     testImplementation 'junit:junit:4.12'
@@ -46,3 +47,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
 }
+repositories {
+    mavenCentral()
+}
+

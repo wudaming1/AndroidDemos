@@ -54,24 +54,14 @@ class ZoomRelativeLayout : RelativeLayout, LinkedChild {
     }
 
     override fun onLinkedScroll(x: Int, y: Int, consumed: IntArray, type: Int) {
-
-        if (type == ViewCompat.TYPE_TOUCH && rollbackAnim.isRunning) {
-            rollbackAnim.cancel()
-        }
         var unconsumedY: Int
         if (y > 0) {
-            if (type == ViewCompat.TYPE_TOUCH) {
-                unconsumedY = zoomSelf(y)
-            } else {
-                unconsumedY = y
-            }
+            unconsumedY = zoomIfNeed(y, type)
             unconsumedY = move(unconsumedY)
 
         } else {
             unconsumedY = move(y)
-            if (type == ViewCompat.TYPE_TOUCH) {
-                unconsumedY = zoomSelf(unconsumedY)
-            }
+            unconsumedY = zoomIfNeed(unconsumedY, type)
         }
 
         consumed[1] = y - unconsumedY
@@ -109,6 +99,18 @@ class ZoomRelativeLayout : RelativeLayout, LinkedChild {
         }
         rollbackAnim.duration = 200
         rollbackAnim.interpolator = DecelerateInterpolator()
+    }
+
+    private fun zoomIfNeed(increment: Int, type: Int): Int {
+        if (type == ViewCompat.TYPE_TOUCH && increment != 0) {
+            if (rollbackAnim.isRunning) {
+                rollbackAnim.cancel()
+            }
+            return zoomSelf(increment)
+        }
+
+        return increment
+
     }
 
     private fun zoomSelf(increment: Int): Int {
