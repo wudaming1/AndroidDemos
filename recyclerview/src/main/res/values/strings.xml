@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HeadRecyclerView</string>
+    <string name="sticky_demo">分组标题吸顶</string>
 </resources>

@@ -3,7 +3,8 @@
     package="com.aries.sdk.recyclerview">
 
     <application android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".RecyclerViewActivity" />
+        <activity android:name=".sticky.StickyActivity"></activity>
     </application>
 
 </manifest>
