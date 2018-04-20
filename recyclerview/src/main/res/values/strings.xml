@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HeadRecyclerView</string>
     <string name="sticky_demo">分组标题吸顶</string>
+    <string name="item_title">我是分组标题</string>
 </resources>

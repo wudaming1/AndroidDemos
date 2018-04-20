@@ -28,7 +28,7 @@ class StickyActivity : AppCompatActivity() {
     private fun init() {
 
         (0..99).forEach {
-            val text = if (it % 10 == 0) "我是分组标题" else "我是第${it % 10}个子项"
+            val text = if (it % 10 == 0) getString(R.string.item_title) else "我是第${it % 10}个子项"
             val type = if (it % 10 == 0) SimpleAdapter.TYPE_TITLE else SimpleAdapter.TYPE_CONTENT
             data.add(text to type)
         }
@@ -36,7 +36,7 @@ class StickyActivity : AppCompatActivity() {
         val simpleAdapter = SimpleAdapter()
         simpleAdapter.setData(data)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addItemDecoration(StickyDecorator())
         recyclerView.adapter = simpleAdapter
-        simpleAdapter.notifyDataSetChanged()
     }
 }
