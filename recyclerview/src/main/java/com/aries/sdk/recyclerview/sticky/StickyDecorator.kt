@@ -31,13 +31,7 @@ class StickyDecorator : RecyclerView.ItemDecoration() {
             initStickyContent(stickyView!!, firstVisiblePosition)
             measureStickyView(stickyView!!, parent, firstVisiblePosition)
             layoutStickyView(stickyView!!, parent, layoutManager, c)
-            stickyView!!.draw(c)
-
-            if (flag) {
-                c.restore()
-                flag = false
-            }
-
+            drawStickyView(stickyView!!,c)
         }
 
     }
@@ -49,7 +43,7 @@ class StickyDecorator : RecyclerView.ItemDecoration() {
 
     private fun initStickyContent(stickyView: View, position: Int) {
         val textView = stickyView.findViewById<TextView>(R.id.title)
-        textView.setText("title $position")
+        textView.text = "title $position"
     }
 
     private fun measureStickyView(stickyView: View, parent: RecyclerView, position: Int) {
@@ -90,11 +84,22 @@ class StickyDecorator : RecyclerView.ItemDecoration() {
                 , parent.paddingTop + layoutParams.topMargin + stickyView.measuredHeight)
     }
 
+    private fun drawStickyView(stickyView: View, c: Canvas) {
+        stickyView.draw(c)
+        if (flag) {
+            c.restore()
+            flag = false
+        }
+    }
+
+
 
     private fun translateCanvas(c: Canvas, offset: Int) {
-        c.save()
+        if (!flag) {
+            c.save()
+            flag = true
+        }
         c.translate(0f, offset.toFloat())
-        flag = true
     }
 
 }

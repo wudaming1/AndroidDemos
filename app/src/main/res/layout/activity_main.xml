@@ -29,6 +29,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/go_recycler_view" />
+
+        <Button
+            android:id="@+id/goMaterialDemo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/go_material_design" />
     </LinearLayout>
 
 

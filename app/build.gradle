@@ -36,6 +36,7 @@ dependencies {
     implementation project(':recyclerview')
     implementation project(':nestedscrolling')
     implementation project(':base')
+    implementation project(':materialDesign')
     implementation project(':pageregister')
     implementation project(':register-annotation')
     kapt project(':register-compiler')
