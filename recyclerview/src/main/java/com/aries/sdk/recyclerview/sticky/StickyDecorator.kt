@@ -16,6 +16,7 @@ class StickyDecorator : RecyclerView.ItemDecoration() {
 
     private var stickyView: View? = null
     private var flag = false
+    private var measured = false
 
 
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -29,9 +30,11 @@ class StickyDecorator : RecyclerView.ItemDecoration() {
                 stickyView = createStickyView(parent)
             }
             initStickyContent(stickyView!!, firstVisiblePosition)
-            measureStickyView(stickyView!!, parent, firstVisiblePosition)
+            if (!measured) {
+                measureStickyView(stickyView!!, parent, firstVisiblePosition)
+            }
             layoutStickyView(stickyView!!, parent, layoutManager, c)
-            drawStickyView(stickyView!!,c)
+            drawStickyView(stickyView!!, c)
         }
 
     }
@@ -55,8 +58,8 @@ class StickyDecorator : RecyclerView.ItemDecoration() {
         layoutParams.width = width
         val widthSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY)
         val heightSpec = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY)
-
         stickyView.measure(widthSpec, heightSpec)
+        measured = true
     }
 
     private fun layoutStickyView(stickyView: View, parent: RecyclerView
@@ -74,14 +77,15 @@ class StickyDecorator : RecyclerView.ItemDecoration() {
 
         val nextStickyItem = parent.findViewHolderForLayoutPosition(firstCompletelyVisibleItemPosition).itemView
         val nextTopMargin = nextStickyItem.top
-        layoutParams.topMargin = nextTopMargin - stickyView.measuredHeight
+        val stickyTopMargin = Math.min(0, nextTopMargin - stickyView.measuredHeight)
 
+        layoutParams.topMargin = stickyTopMargin
         translateCanvas(c, layoutParams.topMargin)
 
         stickyView.layout(parent.paddingLeft
-                , parent.paddingTop + layoutParams.topMargin
+                , parent.paddingTop
                 , parent.paddingLeft + stickyView.measuredWidth
-                , parent.paddingTop + layoutParams.topMargin + stickyView.measuredHeight)
+                , parent.paddingTop + stickyView.measuredHeight)
     }
 
     private fun drawStickyView(stickyView: View, c: Canvas) {
@@ -91,7 +95,6 @@ class StickyDecorator : RecyclerView.ItemDecoration() {
             flag = false
         }
     }
-
 
 
     private fun translateCanvas(c: Canvas, offset: Int) {
