@@ -1,4 +1,4 @@
-package com.aries.sdk.recyclerview.sticky
+package com.aries.sdk.recyclerview.common
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -17,10 +17,10 @@ class SimpleAdapter : RecyclerView.Adapter<SimpleViewHolder>() {
 
     }
 
-    private val data = mutableListOf<Pair<String, Int>>()
+    private var data = mutableListOf<Pair<String, Int>>()
 
-    fun setData(data: List<Pair<String, Int>>) {
-        this.data.addAll(data)
+    fun setData(data: MutableList<Pair<String, Int>>) {
+        this.data=data
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleViewHolder {

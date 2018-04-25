@@ -1,4 +1,4 @@
-package com.aries.sdk.recyclerview.sticky
+package com.aries.sdk.recyclerview.common
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

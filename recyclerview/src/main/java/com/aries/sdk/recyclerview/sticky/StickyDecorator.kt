@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import com.aries.sdk.recyclerview.R
+import com.aries.sdk.recyclerview.common.SimpleAdapter
 
 /**
  * Author wudaming

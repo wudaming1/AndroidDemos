@@ -4,7 +4,8 @@
 
     <application android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".RecyclerViewActivity" />
-        <activity android:name=".sticky.StickyActivity"></activity>
+        <activity android:name=".sticky.StickyActivity" />
+        <activity android:name=".grid.GridActivity"></activity>
     </application>
 
 </manifest>

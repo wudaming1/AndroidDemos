@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.aries.sdk.recyclerview.grid.GridActivity
 import com.aries.sdk.recyclerview.sticky.StickyActivity
 import kotlinx.android.synthetic.main.activity_reycyler_view.*
 
@@ -23,5 +24,6 @@ class RecyclerViewActivity : AppCompatActivity() {
         context = this
         setContentView(R.layout.activity_reycyler_view)
         goSticky.setOnClickListener { StickyActivity.launch(context) }
+        goGrid.setOnClickListener { GridActivity.launch(context) }
     }
 }
