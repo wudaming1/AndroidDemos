@@ -1,10 +1,8 @@
 package com.aries.android.demo;
 
-import android.app.Activity;
-import android.content.Intent;
-
 import com.aries.android.demo.touch.TouchActivity;
 import com.aries.demo.materialdesign.MaterialActivity;
+import com.aries.demo.testbase.ActivityTest;
 import com.aries.sdk.recyclerview.RecyclerViewActivity;
 import com.arise.demo.nestedscrolling.activities.NestedScrollingMainActivity;
 
@@ -13,18 +11,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.shadows.ShadowApplication;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by wudaming on 2018/4/9.
  */
 
 @RunWith(RobolectricTestRunner.class)
-public class MainActivityTest {
+public class MainActivityTest extends ActivityTest {
 
-    private MainActivity activity;
 
     @Before
     public void init() {
@@ -49,16 +43,5 @@ public class MainActivityTest {
     @Test
     public void goMaterialDemo() {
         checkGoActivity(R.id.goMaterialDemo, MaterialActivity.class);
-    }
-
-    private void checkGoActivity(int id, Class<? extends Activity> targetActivity) {
-        activity.findViewById(id).performClick();
-        assertResult(targetActivity);
-    }
-
-    private void assertResult(Class clazz) {
-        Intent expectedIntent = new Intent(activity, clazz);
-        Intent actualIntent = ShadowApplication.getInstance().getNextStartedActivity();
-        assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
     }
 }

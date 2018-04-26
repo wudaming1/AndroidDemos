@@ -9,7 +9,7 @@ import org.robolectric.RobolectricTestRunner;
  */
 
 @RunWith(RobolectricTestRunner.class)
-public class MineActivityTest {
+public class RecyclerViewActivityTest {
 
     @Test
     public void testOnCreate(){
