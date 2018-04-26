@@ -1,21 +1,15 @@
 package com.aries.sdk.recyclerview
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.aries.base.launch
 import com.aries.sdk.recyclerview.grid.GridActivity
 import com.aries.sdk.recyclerview.sticky.StickyActivity
 import kotlinx.android.synthetic.main.activity_reycyler_view.*
 
 class RecyclerViewActivity : AppCompatActivity() {
 
-    companion object {
-        fun launch(context: Context) {
-            val intent = Intent(context, RecyclerViewActivity::class.java)
-            context.startActivity(intent)
-        }
-    }
 
     private lateinit var context: Context
 
@@ -23,7 +17,9 @@ class RecyclerViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         context = this
         setContentView(R.layout.activity_reycyler_view)
-        goSticky.setOnClickListener { StickyActivity.launch(context) }
-        goGrid.setOnClickListener { GridActivity.launch(context) }
+        goSticky.setOnClickListener {
+            context.launch(StickyActivity::class.java)
+        }
+        goGrid.setOnClickListener { context.launch(GridActivity::class.java) }
     }
 }

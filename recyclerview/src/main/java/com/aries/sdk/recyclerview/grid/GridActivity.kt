@@ -1,22 +1,13 @@
 package com.aries.sdk.recyclerview.grid
 
-import android.content.Context
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import com.aries.sdk.recyclerview.R
 import com.aries.sdk.recyclerview.common.SimpleAdapter
 import kotlinx.android.synthetic.main.activity_grid.*
 
 class GridActivity : AppCompatActivity() {
-
-    companion object {
-        fun launch(context: Context){
-            val intent = Intent(context,GridActivity::class.java)
-            context.startActivity(intent)
-        }
-    }
 
     private val data = mutableListOf<Pair<String, Int>>()
     private val simpleAdapter = SimpleAdapter()

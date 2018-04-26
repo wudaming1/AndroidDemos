@@ -5,7 +5,9 @@
     <application android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".RecyclerViewActivity" />
         <activity android:name=".sticky.StickyActivity" />
-        <activity android:name=".grid.GridActivity"></activity>
+        <activity android:name=".grid.GridActivity" />
+        <activity android:name=".learning.LearningActivity" />
+        <activity android:name=".common.CommonActivity"></activity>
     </application>
 
 </manifest>

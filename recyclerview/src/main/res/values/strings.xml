@@ -3,6 +3,7 @@
     <string name="sticky_demo">分组标题吸顶</string>
     <string name="item_title">我是分组标题</string>
     <string name="go_grid">grid_demo</string>
+    <string name="go_learning">learning_demo</string>
     <string name="delete_item">删除一个item</string>
     <string name="add_item">添加一个item</string>
 </resources>

@@ -1,9 +1,11 @@
 package com.aries.android.demo;
 
+import android.app.Activity;
 import android.content.Intent;
 
 import com.aries.android.demo.touch.TouchActivity;
-import com.aries.sdk.recyclerview.activitys.RecyclerHomeActivity;
+import com.aries.demo.materialdesign.MaterialActivity;
+import com.aries.sdk.recyclerview.RecyclerViewActivity;
 import com.arise.demo.nestedscrolling.activities.NestedScrollingMainActivity;
 
 import org.junit.Before;
@@ -30,35 +32,33 @@ public class MainActivityTest {
     }
 
     @Test
-    public void goTouchExp() {
-        Intent expectedIntent = new Intent(activity, TouchActivity.class);
-
-        activity.findViewById(R.id.goTouch).performClick();
-
-        Intent actualIntent = ShadowApplication.getInstance().getNextStartedActivity();
-
-        assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
+    public void goTouch() {
+        checkGoActivity(R.id.goTouch, TouchActivity.class);
     }
 
     @Test
     public void goNestedScrollingDemo() {
-        Intent expectedIntent = new Intent(activity, NestedScrollingMainActivity.class);
-
-        activity.findViewById(R.id.goNestedScrolling).performClick();
-
-        Intent actualIntent = ShadowApplication.getInstance().getNextStartedActivity();
-
-        assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
+        checkGoActivity(R.id.goNestedScrolling, NestedScrollingMainActivity.class);
     }
 
     @Test
     public void goRecyclerViewDemo() {
-        Intent expectedIntent = new Intent(activity, RecyclerHomeActivity.class);
+        checkGoActivity(R.id.goRecyclerDemo, RecyclerViewActivity.class);
+    }
 
-        activity.findViewById(R.id.goRecyclerDemo).performClick();
+    @Test
+    public void goMaterialDemo() {
+        checkGoActivity(R.id.goMaterialDemo, MaterialActivity.class);
+    }
 
+    private void checkGoActivity(int id, Class<? extends Activity> targetActivity) {
+        activity.findViewById(id).performClick();
+        assertResult(targetActivity);
+    }
+
+    private void assertResult(Class clazz) {
+        Intent expectedIntent = new Intent(activity, clazz);
         Intent actualIntent = ShadowApplication.getInstance().getNextStartedActivity();
-
         assertEquals(expectedIntent.getComponent(), actualIntent.getComponent());
     }
 }

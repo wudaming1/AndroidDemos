@@ -1,7 +1,5 @@
 package com.aries.sdk.recyclerview.sticky
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -10,13 +8,6 @@ import com.aries.sdk.recyclerview.common.SimpleAdapter
 import kotlinx.android.synthetic.main.activity_sticky.*
 
 class StickyActivity : AppCompatActivity() {
-
-    companion object {
-        fun launch(context: Context) {
-            val intent = Intent(context, StickyActivity::class.java)
-            context.startActivity(intent)
-        }
-    }
 
     private val data = mutableListOf<Pair<String, Int>>()
 

@@ -2,7 +2,6 @@ package com.aries.sdk.recyclerview.activitys;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
 /**
@@ -14,7 +13,7 @@ public class MineActivityTest {
 
     @Test
     public void testOnCreate(){
-        HeadDemoActivity activity = Robolectric.setupActivity(HeadDemoActivity.class);
+
 
     }
 
