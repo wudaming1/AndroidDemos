@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.aries.android.demo.touch.TouchActivity
 import com.aries.base.BaseActivity
 import com.aries.base.launch
+import com.aries.demo.animation.AnimActivity
 import com.aries.demo.materialdesign.MaterialActivity
 import com.aries.sdk.recyclerview.RecyclerViewActivity
 import com.arise.demo.nestedscrolling.activities.NestedScrollingMainActivity
@@ -30,5 +31,7 @@ class MainActivity : BaseActivity() {
         goMaterialDemo.setOnClickListener {
             context.launch(MaterialActivity::class.java)
         }
+
+        goAnimDemo.setOnClickListener { context.launch(AnimActivity::class.java) }
     }
 }

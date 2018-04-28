@@ -4,4 +4,5 @@
     <string name="touch_event">触摸事件分发</string>
     <string name="go_recycler_view">recyclerView</string>
     <string name="go_material_design">Material Design</string>
+    <string name="go_anim">动画demo</string>
 </resources>

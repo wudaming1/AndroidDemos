@@ -1,6 +1,7 @@
 package com.aries.android.demo;
 
 import com.aries.android.demo.touch.TouchActivity;
+import com.aries.demo.animation.AnimActivity;
 import com.aries.demo.materialdesign.MaterialActivity;
 import com.aries.demo.testbase.ActivityTest;
 import com.aries.sdk.recyclerview.RecyclerViewActivity;
@@ -43,5 +44,10 @@ public class MainActivityTest extends ActivityTest {
     @Test
     public void goMaterialDemo() {
         checkGoActivity(R.id.goMaterialDemo, MaterialActivity.class);
+    }
+
+    @Test
+    public void goAnimDemo() {
+        checkGoActivity(R.id.goAnimDemo, AnimActivity.class);
     }
 }
