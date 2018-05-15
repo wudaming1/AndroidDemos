@@ -1,4 +1,4 @@
-include ':app', ':nestedscrolling', ':base', ':materialDesign', ':testbase', ':animation',
+include ':app', ':nestedscrolling', ':base', ':materialDesign', ':testbase', ':animation', ':notification', ':service',
         ':recyclerview',
         ':pageregister',
         ':register-annotation',

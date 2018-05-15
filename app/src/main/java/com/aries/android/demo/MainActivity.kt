@@ -18,6 +18,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Page.activity.aa
         context = this
         goNestedScrolling.setOnClickListener { context.launch(NestedScrollingMainActivity::class.java) }
 
