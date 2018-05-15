@@ -5,4 +5,5 @@
     <string name="go_recycler_view">recyclerView</string>
     <string name="go_material_design">Material Design</string>
     <string name="go_anim">动画demo</string>
+    <string name="remote_service">远程服务demo</string>
 </resources>

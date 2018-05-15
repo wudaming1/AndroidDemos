@@ -7,6 +7,7 @@ import com.aries.base.BaseActivity
 import com.aries.base.launch
 import com.aries.demo.animation.AnimActivity
 import com.aries.demo.materialdesign.MaterialActivity
+import com.aries.demo.service.BookManagerActivity
 import com.aries.sdk.recyclerview.RecyclerViewActivity
 import com.arise.demo.nestedscrolling.activities.NestedScrollingMainActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,7 +19,6 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Page.activity.aa
         context = this
         goNestedScrolling.setOnClickListener { context.launch(NestedScrollingMainActivity::class.java) }
 
@@ -34,5 +34,7 @@ class MainActivity : BaseActivity() {
         }
 
         goAnimDemo.setOnClickListener { context.launch(AnimActivity::class.java) }
+
+        goService.setOnClickListener { context.launch(BookManagerActivity::class.java) }
     }
 }

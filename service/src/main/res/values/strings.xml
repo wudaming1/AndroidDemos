@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Service</string>
+    <string name="open_service">开启远程服务</string>
 </resources>

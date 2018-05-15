@@ -1,1 +1,18 @@
-<manifest package="com.aries.demo.service" />
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aries.demo.service">
+
+    <application>
+
+        <!-- android:exported表示组件能否被跨进程调用 -->
+        <service
+            android:name=".MyIntentService"
+            android:exported="false" />
+        <service
+            android:name=".MyService"
+            android:process=":notify" />
+
+        <activity android:name=".BookManagerActivity" />
+    </application>
+
+</manifest>

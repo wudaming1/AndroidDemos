@@ -22,15 +22,18 @@ android {
         }
     }
 
-    sourceSets { main { java.srcDirs = ['src/main/java', 'src/main/kotlin'] } }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':base')
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation project(':testbase')
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
