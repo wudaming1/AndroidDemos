@@ -18,6 +18,7 @@ import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.tools.Diagnostic;
@@ -62,6 +63,14 @@ public class RegisterProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
+        for (Element element : roundEnvironment.getElementsAnnotatedWith(RegisterPage.class)) {
+            if (element.getKind() != ElementKind.CLASS) {
+                //这种方式打印错误可以在输出里面直接定位到错误代码行。
+                messager.printMessage(Diagnostic.Kind.ERROR,
+                        "Only Classes can be annotated with @RegisterPage",
+                        element);
+            }
+        }
         FileUtils.print("process!!");
         Map<PageType, Set<RegisteredClass>> targetMap = new HashMap<>();
         sortElement(targetMap, roundEnvironment);

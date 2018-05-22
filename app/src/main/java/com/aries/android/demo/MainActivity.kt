@@ -5,11 +5,6 @@ import android.os.Bundle
 import com.aries.android.demo.touch.TouchActivity
 import com.aries.base.BaseActivity
 import com.aries.base.launch
-import com.aries.demo.animation.AnimActivity
-import com.aries.demo.materialdesign.MaterialActivity
-import com.aries.demo.service.BookManagerActivity
-import com.aries.sdk.recyclerview.RecyclerViewActivity
-import com.arise.demo.nestedscrolling.activities.NestedScrollingMainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -20,21 +15,23 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         context = this
-        goNestedScrolling.setOnClickListener { context.launch(NestedScrollingMainActivity::class.java) }
+        goNestedScrolling.setOnClickListener {
+            PageRoute.launch(this, PageRoute.NestedScrollingDemo)
+        }
 
         goTouch.setOnClickListener { context.launch(TouchActivity::class.java) }
 
         goRecyclerDemo.setOnClickListener {
-
-            context.launch(RecyclerViewActivity::class.java)
+            PageRoute.launch(this, PageRoute.RecyclerViewDemo)
         }
 
         goMaterialDemo.setOnClickListener {
-            context.launch(MaterialActivity::class.java)
+            PageRoute.launch(this, PageRoute.MaterialDemo)
         }
 
-        goAnimDemo.setOnClickListener { context.launch(AnimActivity::class.java) }
+        goAnimDemo.setOnClickListener { PageRoute.launch(this, PageRoute.AnimDemo) }
 
-        goService.setOnClickListener { context.launch(BookManagerActivity::class.java) }
+        goService.setOnClickListener { PageRoute.launch(this, PageRoute.AIDLDemo) }
+
     }
 }

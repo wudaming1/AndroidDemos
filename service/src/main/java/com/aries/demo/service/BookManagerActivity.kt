@@ -17,6 +17,7 @@ class BookManagerActivity : BaseActivity() {
 
 
     private val bookList = ArrayList<Book>()
+    private var isBinded = false
 
     private val mConnection = object : ServiceConnection {
         override fun onServiceDisconnected(p0: ComponentName) {
@@ -48,12 +49,14 @@ class BookManagerActivity : BaseActivity() {
     }
 
     private fun bindService() {
+        isBinded = true
         val intent = Intent(this, MyService::class.java)
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE)
     }
 
     override fun onDestroy() {
-        unbindService(mConnection)
+        if (isBinded)
+            unbindService(mConnection)
         super.onDestroy()
     }
 }
