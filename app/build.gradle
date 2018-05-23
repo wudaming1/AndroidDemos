@@ -37,11 +37,11 @@ kapt {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':service')
-    implementation project(':recyclerview')
-    implementation project(':nestedscrolling')
-    implementation project(':materialDesign')
-    implementation project(':pageregister')
-    implementation project(':animation')
+//    implementation project(':recyclerview')
+//    implementation project(':nestedscrolling')
+//    implementation project(':materialDesign')
+//    implementation project(':pageregister')
+//    implementation project(':animation')
     implementation project(':register-annotation')
     kapt project(':register-compiler')
 

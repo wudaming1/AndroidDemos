@@ -9,10 +9,18 @@
             android:name=".MyIntentService"
             android:exported="false" />
         <service
-            android:name=".MyService"
-            android:process=":notify" />
+            android:name=".aidl.MyService"
+            android:process=":aidl" />
 
         <activity android:name=".BookManagerActivity" />
+
+        <service
+            android:name=".messenger.MessengerService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":messenger" />
+
+        <activity android:name=".messenger.MessengerActivity"></activity>
     </application>
 
 </manifest>

@@ -1,12 +1,13 @@
 include ':app',
-        ':nestedscrolling',
-        ':base',
-        ':materialDesign',
-        ':testbase',
-        ':animation',
-        ':notification',
-        ':service',
-        ':recyclerview',
-        ':pageregister',
         ':register-annotation',
-        ':register-compiler'
+        ':register-compiler',
+        ':testbase',
+        ':base',
+//        ':nestedscrolling',
+//        ':materialDesign',
+//        ':animation',
+//        ':notification',
+        ':service'
+//        ':recyclerview',
+//        ':pageregister'
+

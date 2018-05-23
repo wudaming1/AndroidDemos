@@ -1,9 +1,11 @@
-package com.aries.demo.service
+package com.aries.demo.service.aidl
 
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
+import com.aries.demo.service.Book
+import com.aries.demo.service.IBookManager
 import java.util.concurrent.CopyOnWriteArrayList
 
 

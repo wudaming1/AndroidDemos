@@ -9,6 +9,9 @@ import android.os.IBinder
 import android.os.RemoteException
 import android.util.Log
 import com.aries.base.BaseActivity
+import com.aries.base.launch
+import com.aries.demo.service.aidl.MyService
+import com.aries.demo.service.messenger.MessengerActivity
 import kotlinx.android.synthetic.main.activity_book_manager.*
 
 private const val TAG = "BookManagerActivity"
@@ -40,11 +43,14 @@ class BookManagerActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val context = this
         setContentView(R.layout.activity_book_manager)
         openService.setOnClickListener {
             Log.e(TAG, "start")
             bindService()
         }
+
+        button.setOnClickListener { context.launch(MessengerActivity::class.java) }
 
     }
 
