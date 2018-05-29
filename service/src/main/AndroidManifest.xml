@@ -20,7 +20,13 @@
             android:exported="true"
             android:process=":messenger" />
 
-        <activity android:name=".messenger.MessengerActivity"></activity>
+        <provider
+            android:name=".contentProvider.BookContentProvider"
+            android:authorities="com.aries.demo.service.bookProvider"
+            android:process=":provider" />
+
+        <activity android:name=".messenger.MessengerActivity" />
+        <activity android:name=".contentProvider.ProviderActivity" />
     </application>
 
 </manifest>
