@@ -1,13 +1,14 @@
 include ':app',
+        ':widget',
         ':register-annotation',
         ':register-compiler',
         ':testbase',
-        ':base',
+        ':base'
 //        ':nestedscrolling',
 //        ':materialDesign',
 //        ':animation',
 //        ':notification',
-        ':service'
+//        ':service'
 //        ':recyclerview',
 //        ':pageregister'
 

@@ -15,23 +15,21 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         context = this
-        goNestedScrolling.setOnClickListener {
-            PageRoute.launch(this, PageRoute.NestedScrollingDemo)
-        }
+        goNestedScrolling.setOnClickListener { PageRoute.launch(this, PageRoute.NestedScrollingDemo) }
 
         goTouch.setOnClickListener { context.launch(TouchActivity::class.java) }
 
-        goRecyclerDemo.setOnClickListener {
-            PageRoute.launch(this, PageRoute.RecyclerViewDemo)
-        }
+        goRecyclerDemo.setOnClickListener { PageRoute.launch(this, PageRoute.RecyclerViewDemo) }
 
-        goMaterialDemo.setOnClickListener {
-            PageRoute.launch(this, PageRoute.MaterialDemo)
-        }
+        goMaterialDemo.setOnClickListener { PageRoute.launch(this, PageRoute.MaterialDemo) }
 
         goAnimDemo.setOnClickListener { PageRoute.launch(this, PageRoute.AnimDemo) }
 
         goService.setOnClickListener { PageRoute.launch(this, PageRoute.AIDLDemo) }
+
+        goWidget.setOnClickListener { PageRoute.launch(this, PageRoute.WidgetDemo) }
+
+        goWidget.performClick()
 
     }
 }

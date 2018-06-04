@@ -18,6 +18,7 @@ object PageRoute {
     const val RecyclerViewDemo = "com.aries.sdk.recyclerview.RecyclerViewActivity"
     const val AnimDemo = "com.aries.demo.animation.AnimActivity"
     const val AIDLDemo = "com.aries.demo.service.BookManagerActivity"
+    const val WidgetDemo = "com.aries.demo.widget.WidgetActivity"
 
     fun launch(context: Context, path: String) {
         val clazz = findClazz<Activity>(context, path)
