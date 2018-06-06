@@ -7,12 +7,13 @@
     android:orientation="vertical"
     tools:context=".WidgetActivity">
 
-    <com.aries.demo.widget.widgets.ExtendEditText
+    <com.aries.demo.widget.extendEditText.ExtendEditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:id="@+id/firstEditText"
         android:background="#ede7e7" />
 
-    <com.aries.demo.widget.widgets.ExtendEditText
+    <com.aries.demo.widget.extendEditText.ExtendEditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#ede7e7" />

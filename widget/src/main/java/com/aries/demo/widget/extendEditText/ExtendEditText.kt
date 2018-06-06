@@ -1,10 +1,12 @@
-package com.aries.demo.widget.widgets
+package com.aries.demo.widget.extendEditText
 
 import android.content.Context
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
@@ -17,28 +19,35 @@ import kotlinx.android.synthetic.main.layout_extend_edit_text.view.*
  */
 class ExtendEditText : RelativeLayout, TextWatcher {
 
+    companion object {
+        private val formatTypeArray = arrayOf(FormatType.NORMAL
+                , FormatType.PHONE
+                , FormatType.BANK)
+    }
+
     private var isChecked = false
     private var hasFocus = false
     private var isEmpty = true
     private var isPassword = false
+    private var numberFormatter: NumberFormatter = PhoneFormatter()
 
-    constructor(context: Context) : super(context) {
-        init(context)
-    }
+    constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attr: AttributeSet) : super(context, attr) {
-        init(context)
-    }
+    constructor(context: Context, attr: AttributeSet?) : this(context, attr, 0)
 
-    constructor(context: Context, attr: AttributeSet, defStyleAttr: Int)
+    constructor(context: Context, attr: AttributeSet?, defStyleAttr: Int)
             : super(context, attr, defStyleAttr) {
         init(context)
+        attr?.apply {
+            val typedArray = context.obtainStyledAttributes(this, R.styleable.ExtendEditText)
+            val index = typedArray.getInt(R.styleable.ExtendEditText_formatType, -1)
+            if (index > -1)
+                numberFormatter = NumberFormatterFactory.createNumberFormatter(formatTypeArray[index])
+            typedArray.recycle()
+        }
+
     }
 
-    constructor(context: Context, attr: AttributeSet, defStyleAttr: Int, defStyleRes: Int)
-            : super(context, attr, defStyleAttr, defStyleRes) {
-        init(context)
-    }
 
     private fun init(context: Context) {
         LayoutInflater.from(context).inflate(R.layout.layout_extend_edit_text, this, true)
@@ -66,6 +75,10 @@ class ExtendEditText : RelativeLayout, TextWatcher {
         mEditText.addTextChangedListener(this)
     }
 
+    fun setFormatter(numberFormatter: NumberFormatter) {
+        this.numberFormatter = numberFormatter
+    }
+
     fun addTextChangedListener(watcher: TextWatcher) {
         mEditText.addTextChangedListener(watcher)
     }
@@ -73,6 +86,12 @@ class ExtendEditText : RelativeLayout, TextWatcher {
     fun removeTextChangedListener(watcher: TextWatcher) {
         mEditText.removeTextChangedListener(watcher)
     }
+
+    fun setFilter(vararg filters: InputFilter) {
+        mEditText.filters = filters
+    }
+
+    fun getTextView() = mEditText
 
     override fun afterTextChanged(s: Editable?) {
         isEmpty = s.isNullOrEmpty()
@@ -83,7 +102,14 @@ class ExtendEditText : RelativeLayout, TextWatcher {
 
     }
 
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        Log.e("wdm", "$s,start:$start,before:$before,count$count")
+        val formattedText = numberFormatter.getFormattedText(s.toString(), " ")
+        if (formattedText != s.toString()) {
+            mEditText.setText(formattedText)
+            mEditText.setSelection(formattedText.length)
+        }
+
     }
 
     private fun refreshRightIcons() {
