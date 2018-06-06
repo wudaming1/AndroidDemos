@@ -7,14 +7,14 @@ import org.junit.Test;
  * Author wudaming
  * Created on 2018/6/5
  */
-public class NumberFormatterText {
+public class NumberFormatterTest {
 
     @Test
     public void testPhoneFormatter() {
         String[] strings = {"152", "152 ", "152 0", "1520 1", "1520", "15201 55", "152 0155 "
-                , "15201555981", "152 0155 5981"};
+                , "15201555981", "152 0155 5981", "152015559811520155598115201555981"};
         String[] targets = {"152", "152", "152 0", "152 01", "152 0", "152 0155", "152 0155"
-                , "152 0155 5981", "152 0155 5981"};
+                , "152 0155 5981", "152 0155 5981", "152 0155 5981"};
 
         PhoneFormatter formatter = new PhoneFormatter();
         testEqual(strings, targets, "手机号格式化错误！", formatter);

@@ -48,10 +48,10 @@ class PhoneFormatter : NumberFormatter {
         val resultText = StringBuilder()
         val length = phone.length
         when (length) {
-            in 8..12 -> {
+            in 8..Int.MAX_VALUE -> {
                 resultText.append(phone.substring(0, 3)).append(separator)
                 resultText.append(phone.substring(3, 7)).append(separator)
-                resultText.append(phone.substring(7, length))
+                resultText.append(phone.substring(7, Math.min(length, 11)))
             }
             in 4..8 -> {
                 resultText.append(phone.substring(0, 3)).append(separator)
