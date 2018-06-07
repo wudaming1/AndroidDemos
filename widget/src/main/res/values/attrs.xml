@@ -6,5 +6,7 @@
             <enum name="phone" value="1" />
             <enum name="bank" value="2" />
         </attr>
+        <attr name="clear_icon" format="reference" />
+        <attr name="hide_icon" format="reference" />
     </declare-styleable>
 </resources>

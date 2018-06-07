@@ -1,17 +1,18 @@
 package com.aries.demo.widget.extendEditText
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.InputFilter
+import android.text.InputType
 import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
+import android.widget.AutoCompleteTextView
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.aries.demo.widget.R
-import kotlinx.android.synthetic.main.layout_extend_edit_text.view.*
 
 /**
  * Author wudaming
@@ -30,6 +31,9 @@ class ExtendEditText : RelativeLayout, TextWatcher {
     private var isEmpty = true
     private var isPassword = false
     private var numberFormatter: NumberFormatter = PhoneFormatter()
+    private val mEditText: AutoCompleteTextView
+    private var firstIcon: ImageView? = null
+    private var secondIcon: ImageView? = null
 
     constructor(context: Context) : this(context, null)
 
@@ -37,33 +41,83 @@ class ExtendEditText : RelativeLayout, TextWatcher {
 
     constructor(context: Context, attr: AttributeSet?, defStyleAttr: Int)
             : super(context, attr, defStyleAttr) {
-        init(context)
+
+
         attr?.apply {
             val typedArray = context.obtainStyledAttributes(this, R.styleable.ExtendEditText)
             val index = typedArray.getInt(R.styleable.ExtendEditText_formatType, -1)
             if (index > -1)
                 numberFormatter = NumberFormatterFactory.createNumberFormatter(formatTypeArray[index])
+            if (index > 0) {
+                mEditText.inputType = InputType.TYPE_CLASS_NUMBER
+            }
+
+            val clear_icon = typedArray.getDrawable(R.styleable.ExtendEditText_clear_icon)
+            clear_icon?.apply {
+                initClearIcon(this)
+            }
+
+            typedArray.getDrawable(R.styleable.ExtendEditText_hide_icon)?.apply {
+                //                initPasswordIcon(this)
+            }
+
             typedArray.recycle()
         }
+        init(context)
 
+    }
+
+    init {
+        mEditText = AutoCompleteTextView(context)
+        val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        addView(mEditText, params)
+    }
+
+
+    private fun initClearIcon(drawable: Drawable) {
+        val clear = ImageView(context)
+        clear.setImageDrawable(drawable)
+
+        clear.scaleType = ImageView.ScaleType.CENTER_INSIDE
+        //fixme 这里的20需要适配屏幕密度
+        val params = LayoutParams(drawable.intrinsicWidth + 20, LayoutParams.MATCH_PARENT)
+        params.rightMargin = 0
+        clear.layoutParams = params
+
+        addView(clear, params)
+
+        firstIcon = clear
+    }
+
+    private fun initPasswordIcon(drawable: Drawable) {
+        val passwordIcon = ImageView(context)
+        passwordIcon.setImageDrawable(drawable)
+
+        passwordIcon.scaleType = ImageView.ScaleType.CENTER_INSIDE
+        //fixme 这里的20需要适配屏幕密度
+        val params = LayoutParams(drawable.bounds.width() + 20, LayoutParams.MATCH_PARENT)
+        params.rightMargin = firstIcon?.width ?: 0
+        passwordIcon.layoutParams = params
+        addView(passwordIcon, params)
+
+        secondIcon = passwordIcon
     }
 
 
     private fun init(context: Context) {
-        LayoutInflater.from(context).inflate(R.layout.layout_extend_edit_text, this, true)
 
-        firstIcon.setOnClickListener {
+        firstIcon?.setOnClickListener {
             mEditText.setText("")
         }
 
-        secondIcon.setOnClickListener { _ ->
+        secondIcon?.setOnClickListener { _ ->
             isChecked = !isChecked
             if (isChecked) {
                 mEditText.transformationMethod = PasswordTransformationMethod.getInstance()
-                secondIcon.setImageResource(R.drawable.edit_text_hide)
+                secondIcon?.setImageResource(R.drawable.edit_text_hide)
             } else {
                 mEditText.transformationMethod = null
-                secondIcon.setImageResource(R.drawable.edit_text_show)
+                secondIcon?.setImageResource(R.drawable.edit_text_show)
             }
         }
 
@@ -103,7 +157,6 @@ class ExtendEditText : RelativeLayout, TextWatcher {
     }
 
     override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        Log.e("wdm", "$s,start:$start,before:$before,count$count")
         val formattedText = numberFormatter.getFormattedText(s.toString(), " ")
         if (formattedText != s.toString()) {
             mEditText.setText(formattedText)
@@ -113,8 +166,8 @@ class ExtendEditText : RelativeLayout, TextWatcher {
     }
 
     private fun refreshRightIcons() {
-        firstIcon.visibility = if (!isEmpty && hasFocus) View.VISIBLE else View.GONE
-        secondIcon.visibility = if (!isEmpty && hasFocus && isPassword) View.VISIBLE
+        firstIcon?.visibility = if (!isEmpty && hasFocus) View.VISIBLE else View.GONE
+        secondIcon?.visibility = if (!isEmpty && hasFocus && isPassword) View.VISIBLE
         else View.GONE
 
     }

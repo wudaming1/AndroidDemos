@@ -27,6 +27,9 @@ enum class FormatType {
 }
 
 interface NumberFormatter {
+    /**
+     * @param number 必须保证number的内容只有数字和分隔符
+     */
     fun getFormattedText(number: String, separator: String): String
 }
 
@@ -40,9 +43,6 @@ class NoFormatter : NumberFormatter {
 
 class PhoneFormatter : NumberFormatter {
 
-    /**
-     * 确保text的内容只有分隔符和数字
-     */
     override fun getFormattedText(number: String, separator: String): String {
         val phone = number.replace(separator, "")
         val resultText = StringBuilder()
@@ -66,9 +66,12 @@ class PhoneFormatter : NumberFormatter {
 }
 
 class BankFormatter : NumberFormatter {
+
     /**
-     * 确保text的内容只有分隔符和数字
+     * 步长可指定，暂时没有测试用例，也没有设计好如何使用，有这么个想法。
      */
+    var stepLength = 4
+
     override fun getFormattedText(number: String, separator: String): String {
         val cardNumber = number.replace(separator, "")
         if (cardNumber.isEmpty()) {
@@ -76,12 +79,11 @@ class BankFormatter : NumberFormatter {
         }
         val resultText = StringBuilder()
         val length = cardNumber.length
-        val stepLength = 4
         var pointer = 0
-        if (length < 5) {
+        if (length <= stepLength) {
             resultText.append(cardNumber)
         } else {
-            for (i in 4..length step stepLength) {
+            for (i in stepLength..length step stepLength) {
                 resultText.append(cardNumber.substring(pointer, i)).append(separator)
                 pointer = i
             }
