@@ -1,5 +1,6 @@
 package com.aries.demo.widget.extendEditText
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.text.Editable
@@ -24,6 +25,8 @@ class ExtendEditText : RelativeLayout, TextWatcher {
         private val formatTypeArray = arrayOf(FormatType.NORMAL
                 , FormatType.PHONE
                 , FormatType.BANK)
+
+        private const val CLEAR_ICON_ID = 1027384
     }
 
     private var isChecked = false
@@ -42,6 +45,9 @@ class ExtendEditText : RelativeLayout, TextWatcher {
     constructor(context: Context, attr: AttributeSet?, defStyleAttr: Int)
             : super(context, attr, defStyleAttr) {
 
+        mEditText = AutoCompleteTextView(context, attr)
+        val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        addView(mEditText, params)
 
         attr?.apply {
             val typedArray = context.obtainStyledAttributes(this, R.styleable.ExtendEditText)
@@ -58,7 +64,7 @@ class ExtendEditText : RelativeLayout, TextWatcher {
             }
 
             typedArray.getDrawable(R.styleable.ExtendEditText_hide_icon)?.apply {
-                //                initPasswordIcon(this)
+                initPasswordIcon(this)
             }
 
             typedArray.recycle()
@@ -67,23 +73,17 @@ class ExtendEditText : RelativeLayout, TextWatcher {
 
     }
 
-    init {
-        mEditText = AutoCompleteTextView(context)
-        val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        addView(mEditText, params)
-    }
 
-
+    @SuppressLint("ResourceType")
     private fun initClearIcon(drawable: Drawable) {
         val clear = ImageView(context)
         clear.setImageDrawable(drawable)
 
         clear.scaleType = ImageView.ScaleType.CENTER_INSIDE
-        //fixme 这里的20需要适配屏幕密度
-        val params = LayoutParams(drawable.intrinsicWidth + 20, LayoutParams.MATCH_PARENT)
-        params.rightMargin = 0
+        val params = LayoutParams(drawable.intrinsicWidth + dip2px(10), LayoutParams.MATCH_PARENT)
+        params.rules[ALIGN_PARENT_RIGHT] = TRUE
         clear.layoutParams = params
-
+        clear.id = CLEAR_ICON_ID
         addView(clear, params)
 
         firstIcon = clear
@@ -92,12 +92,9 @@ class ExtendEditText : RelativeLayout, TextWatcher {
     private fun initPasswordIcon(drawable: Drawable) {
         val passwordIcon = ImageView(context)
         passwordIcon.setImageDrawable(drawable)
-
         passwordIcon.scaleType = ImageView.ScaleType.CENTER_INSIDE
-        //fixme 这里的20需要适配屏幕密度
-        val params = LayoutParams(drawable.bounds.width() + 20, LayoutParams.MATCH_PARENT)
-        params.rightMargin = firstIcon?.width ?: 0
-        passwordIcon.layoutParams = params
+        val params = LayoutParams(drawable.intrinsicWidth + dip2px(10), LayoutParams.MATCH_PARENT)
+        params.rules[LEFT_OF] = CLEAR_ICON_ID
         addView(passwordIcon, params)
 
         secondIcon = passwordIcon
@@ -157,6 +154,9 @@ class ExtendEditText : RelativeLayout, TextWatcher {
     }
 
     override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        if (before > 0 && count == 0) {
+            return
+        }
         val formattedText = numberFormatter.getFormattedText(s.toString(), " ")
         if (formattedText != s.toString()) {
             mEditText.setText(formattedText)
@@ -170,5 +170,10 @@ class ExtendEditText : RelativeLayout, TextWatcher {
         secondIcon?.visibility = if (!isEmpty && hasFocus && isPassword) View.VISIBLE
         else View.GONE
 
+    }
+
+    private fun dip2px(dipValue: Int): Int {
+        val scale = resources.displayMetrics.density
+        return (dipValue * scale + 0.5f).toInt()
     }
 }

@@ -15,7 +15,7 @@
         android:textSize="15dp"
         app:clear_icon="@drawable/edit_text_clear"
         app:formatType="phone"
-        app:hide_icon="@drawable/edit_text_password_selector"
+        app:hide_icon="@drawable/edit_text_show"
         android:id="@+id/firstEditText"
         android:background="#ede7e7" />
 
