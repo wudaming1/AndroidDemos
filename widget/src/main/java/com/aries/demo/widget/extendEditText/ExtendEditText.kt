@@ -3,8 +3,8 @@ package com.aries.demo.widget.extendEditText
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.StateListDrawable
 import android.text.Editable
-import android.text.InputFilter
 import android.text.InputType
 import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
@@ -32,11 +32,12 @@ class ExtendEditText : RelativeLayout, TextWatcher {
     private var isChecked = false
     private var hasFocus = false
     private var isEmpty = true
-    private var isPassword = false
-    private var numberFormatter: NumberFormatter = PhoneFormatter()
+    private var isPassword = true
+    private var numberFormatter: NumberFormatter = NoFormatter()
     private val mEditText: AutoCompleteTextView
     private var firstIcon: ImageView? = null
     private var secondIcon: ImageView? = null
+    private var stateListDrawable: StateListDrawable? = null
 
     constructor(context: Context) : this(context, null)
 
@@ -49,8 +50,16 @@ class ExtendEditText : RelativeLayout, TextWatcher {
         val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
         addView(mEditText, params)
 
+        readAttrs(attr)
+
+        init(context)
+
+    }
+
+    private fun readAttrs(attr: AttributeSet?) {
         attr?.apply {
             val typedArray = context.obtainStyledAttributes(this, R.styleable.ExtendEditText)
+
             val index = typedArray.getInt(R.styleable.ExtendEditText_formatType, -1)
             if (index > -1)
                 numberFormatter = NumberFormatterFactory.createNumberFormatter(formatTypeArray[index])
@@ -58,19 +67,35 @@ class ExtendEditText : RelativeLayout, TextWatcher {
                 mEditText.inputType = InputType.TYPE_CLASS_NUMBER
             }
 
-            val clear_icon = typedArray.getDrawable(R.styleable.ExtendEditText_clear_icon)
-            clear_icon?.apply {
+            typedArray.getDrawable(R.styleable.ExtendEditText_clear_icon)?.apply {
                 initClearIcon(this)
             }
 
             typedArray.getDrawable(R.styleable.ExtendEditText_hide_icon)?.apply {
                 initPasswordIcon(this)
+                //fixme 不传入StateListDrawable，传入两张图片自己生成，另外callback被清除需要注意下。
+                if (this is StateListDrawable) {
+                    stateListDrawable = this
+                    this.callback = object : Drawable.Callback {
+                        override fun unscheduleDrawable(who: Drawable?, what: Runnable?) {
+                        }
+
+                        override fun invalidateDrawable(who: Drawable) {
+                            secondIcon?.setImageDrawable(who.current)
+                        }
+
+                        override fun scheduleDrawable(who: Drawable?, what: Runnable?, `when`: Long) {
+                        }
+
+                    }
+                    this.setState(intArrayOf(android.R.attr.state_checked))
+                }
+
+
             }
 
             typedArray.recycle()
         }
-        init(context)
-
     }
 
 
@@ -107,14 +132,18 @@ class ExtendEditText : RelativeLayout, TextWatcher {
             mEditText.setText("")
         }
 
+
+
         secondIcon?.setOnClickListener { _ ->
             isChecked = !isChecked
             if (isChecked) {
+                stateListDrawable?.state = intArrayOf(android.R.attr.state_checked)
                 mEditText.transformationMethod = PasswordTransformationMethod.getInstance()
-                secondIcon?.setImageResource(R.drawable.edit_text_hide)
+//                secondIcon?.setImageResource(R.drawable.edit_text_hide)
             } else {
+                stateListDrawable?.state = intArrayOf(-android.R.attr.state_checked)
                 mEditText.transformationMethod = null
-                secondIcon?.setImageResource(R.drawable.edit_text_show)
+//                secondIcon?.setImageResource(R.drawable.edit_text_show)
             }
         }
 
@@ -130,19 +159,7 @@ class ExtendEditText : RelativeLayout, TextWatcher {
         this.numberFormatter = numberFormatter
     }
 
-    fun addTextChangedListener(watcher: TextWatcher) {
-        mEditText.addTextChangedListener(watcher)
-    }
-
-    fun removeTextChangedListener(watcher: TextWatcher) {
-        mEditText.removeTextChangedListener(watcher)
-    }
-
-    fun setFilter(vararg filters: InputFilter) {
-        mEditText.filters = filters
-    }
-
-    fun getTextView() = mEditText
+    fun getRealTextView() = mEditText
 
     override fun afterTextChanged(s: Editable?) {
         isEmpty = s.isNullOrEmpty()
@@ -164,6 +181,7 @@ class ExtendEditText : RelativeLayout, TextWatcher {
         }
 
     }
+
 
     private fun refreshRightIcons() {
         firstIcon?.visibility = if (!isEmpty && hasFocus) View.VISIBLE else View.GONE
