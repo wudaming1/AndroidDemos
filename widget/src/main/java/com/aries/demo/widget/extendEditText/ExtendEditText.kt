@@ -17,6 +17,7 @@ import com.aries.demo.widget.R
 /**
  * Author wudaming
  * Created on 2018/5/29
+ * 不支持wrap_content
  */
 class ExtendEditText : RelativeLayout, TextWatcher {
 
@@ -31,6 +32,7 @@ class ExtendEditText : RelativeLayout, TextWatcher {
     private var isChecked = false
     private var hasFocus = false
     private var isEmpty = true
+    private var separator = " "
     private var numberFormatter: NumberFormatter = NoFormatter()
     private val mEditText: AutoCompleteTextView
     private var firstIcon: ImageView? = null
@@ -51,7 +53,9 @@ class ExtendEditText : RelativeLayout, TextWatcher {
         readAttrs(attr)
 
         init()
-
+        //移除和AutoCompleteTextView都有的属性，避免重复。
+        background = null
+        setPadding(0, 0, 0, 0)
     }
 
     private fun readAttrs(attr: AttributeSet?) {
@@ -76,9 +80,9 @@ class ExtendEditText : RelativeLayout, TextWatcher {
                     this.setState(intArrayOf(android.R.attr.state_checked))
                     secondIcon?.setImageDrawable(this.current)
                 }
-
-
             }
+
+            typedArray.getString(R.styleable.ExtendEditText_separator)?.apply { separator = this }
 
             typedArray.recycle()
         }
@@ -139,6 +143,10 @@ class ExtendEditText : RelativeLayout, TextWatcher {
         mEditText.addTextChangedListener(this)
     }
 
+    fun getValue(): String {
+        return mEditText.text.toString().replace(separator, "")
+    }
+
     fun setFormatter(numberFormatter: NumberFormatter) {
         this.numberFormatter = numberFormatter
     }
@@ -158,7 +166,7 @@ class ExtendEditText : RelativeLayout, TextWatcher {
         if (before > 0 && count == 0) {
             return
         }
-        val formattedText = numberFormatter.getFormattedText(s.toString(), " ")
+        val formattedText = numberFormatter.getFormattedText(s.toString(), separator)
         if (formattedText != s.toString()) {
             mEditText.setText(formattedText)
             mEditText.setSelection(formattedText.length)

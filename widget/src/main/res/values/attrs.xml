@@ -8,5 +8,6 @@
         </attr>
         <attr name="clear_icon" format="reference" />
         <attr name="hide_icon" format="reference" />
+        <attr name="separator" format="string" />
     </declare-styleable>
 </resources>

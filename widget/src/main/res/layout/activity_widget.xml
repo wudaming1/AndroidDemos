@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -9,18 +9,19 @@
     tools:context=".WidgetActivity">
 
     <com.aries.demo.widget.extendEditText.ExtendEditText
+        android:id="@+id/firstEditText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="#ede7e7"
         android:textColor="#263340"
         android:textSize="15dp"
         app:clear_icon="@drawable/edit_text_clear"
         app:formatType="phone"
-        app:hide_icon="@drawable/edit_text_password_selector"
-        android:id="@+id/firstEditText"
-        android:background="#ede7e7" />
+        app:hide_icon="@drawable/edit_text_password_selector" />
 
-    <!--<com.aries.demo.widget.extendEditText.ExtendEditText-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:background="#ede7e7" />-->
+    <com.aries.demo.widget.extendEditText.ExtendEditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ede7e7"
+        app:clear_icon="@drawable/edit_text_clear" />
 </LinearLayout>
