@@ -23,6 +23,10 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
     testOptions {
         unitTests {
             includeAndroidResources = true
@@ -35,6 +39,9 @@ kapt {
 }
 
 dependencies {
+    def lifecycle_version = "1.1.1"
+
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':widget')
 //    implementation project(':service')
@@ -48,6 +55,7 @@ dependencies {
 
     implementation project(':base')
     testImplementation project(':testbase')
+    testImplementation "android.arch.lifecycle:livedata:$lifecycle_version"
     androidTestImplementation project(':testbase')
 
     implementation 'com.jakewharton:butterknife:8.8.1'

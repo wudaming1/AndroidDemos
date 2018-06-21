@@ -2,6 +2,7 @@ package com.aries.android.demo
 
 import android.content.Context
 import android.os.Bundle
+import com.aries.android.demo.compress.CompressActivity
 import com.aries.android.demo.touch.TouchActivity
 import com.aries.base.BaseActivity
 import com.aries.base.launch
@@ -29,7 +30,9 @@ class MainActivity : BaseActivity() {
 
         goWidget.setOnClickListener { PageRoute.launch(this, PageRoute.WidgetDemo) }
 
-        goWidget.performClick()
+        goCompress.setOnClickListener { context.launch(CompressActivity::class.java) }
+
+        goCompress.performClick()
 
     }
 }

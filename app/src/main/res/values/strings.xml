@@ -7,4 +7,12 @@
     <string name="go_anim">动画demo</string>
     <string name="remote_service">远程服务demo</string>
     <string name="widget_demo">控件demo</string>
+    <string name="compress_demo">图片压缩</string>
+
+    <!-- 通用部分 -->
+    <string name="input_hint">请输入</string>
+
+
+    <string name="width_row_title">宽度：</string>
+    <string name="height_raw_title">高度：</string>
 </resources>
