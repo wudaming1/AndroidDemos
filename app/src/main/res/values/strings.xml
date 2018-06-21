@@ -13,6 +13,8 @@
     <string name="input_hint">请输入</string>
 
 
+    <!-- 图片压缩测试页面-->
+    <string name="compress_title">图片压缩</string>
     <string name="width_row_title">宽度：</string>
     <string name="height_raw_title">高度：</string>
 </resources>

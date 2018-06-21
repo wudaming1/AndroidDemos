@@ -3,6 +3,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="nested_scrolling_green">#FF00FF00</color>
 
+    <color name="bg_page">#F4F4F4</color>
+
     <color name="font_gary">#444444</color>
     <color name="font_black">#131212</color>
 
