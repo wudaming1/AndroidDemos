@@ -22,6 +22,16 @@ abstract class MyActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         super.setContentView(R.layout.common_contain_layout)
         ImmersiveUtil.makeSpaceForImmersive(contentView)
+
+        addListener()
+    }
+
+    private fun addListener() {
+        leftArrow.setOnClickListener { onBackPress() }
+    }
+
+    open fun onBackPress() {
+        finish()
     }
 
     override fun setContentView(layoutResID: Int) {
@@ -58,6 +68,10 @@ abstract class MyActivity : BaseActivity() {
 
     protected fun initTitle(id: Int) {
         pageTitle.setText(id)
+    }
+
+    protected fun showTitleBar(show: Boolean) {
+        titleBar.visibility = if (show) View.VISIBLE else View.GONE
     }
 
 

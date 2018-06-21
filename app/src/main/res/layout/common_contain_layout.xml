@@ -66,6 +66,10 @@
 
         </LinearLayout>
 
+        <View
+            style="@style/divider"
+            android:layout_alignParentBottom="true" />
+
     </RelativeLayout>
 
     <FrameLayout
