@@ -17,4 +17,5 @@
     <string name="compress_title">图片压缩</string>
     <string name="width_row_title">宽度：</string>
     <string name="height_raw_title">高度：</string>
+    <string name="start_compress">选择图片进行压缩</string>
 </resources>

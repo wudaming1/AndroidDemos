@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
+import android.support.annotation.VisibleForTesting
 import com.aries.android.demo.R
 import com.aries.android.demo.common.MyActivity
 import com.aries.android.demo.databinding.ActivityCompressBinding
+import kotlinx.android.synthetic.main.activity_compress.*
 
 class CompressActivity : MyActivity() {
 
@@ -14,6 +16,7 @@ class CompressActivity : MyActivity() {
         private const val REQUEST_CODE = 1
     }
 
+    @VisibleForTesting
     val compressViewModel = CompressViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +26,8 @@ class CompressActivity : MyActivity() {
         binding.config = compressViewModel
 
         initTitle(R.string.compress_title)
+
+        startCompress.setOnClickListener { openAlbumForResult() }
     }
 
 
@@ -47,7 +52,8 @@ class CompressActivity : MyActivity() {
         val cursor = contentResolver.query(uri, filePathColumns, null, null, null)
         if (cursor.moveToFirst()) {
             val columnIndex = cursor.getColumnIndex(filePathColumns[0])
-            val filePath = cursor.getColumnName(columnIndex)
+            val filePath = cursor.getString(columnIndex)
+            compressViewModel.startCompress(filePath)
         }
         cursor.close()
     }
